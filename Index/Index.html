@@ -81,7 +81,7 @@
                     <div class="game-info">
                         <span class="game-genre">FPS(First-Person Shooter)</span>
                         <h3>Valorant</h3>
-                        <p>는 라이엇 게임즈에서 개발한 5 대 5 전술 1인칭 슈팅(FPS) 게임으로, 각 캐릭터의 고유한 스킬과 정밀한 총기 사격을 조합해 상대와 싸우는 게임입니다.</p>
+                        <p>Valorant는 라이엇 게임즈에서 개발한 5 대 5 전술 1인칭 슈팅(FPS) 게임으로, 각 캐릭터의 고유한 스킬과 정밀한 총기 사격을 조합해 상대와 싸우는 게임입니다.</p>
 
                         <div class="game-bottom">
                             <span class="game-rating">평점 4.3</span>
@@ -109,8 +109,8 @@
                     <img src="../image/League%20of%20lengends%20(1).png" alt="LOL 게임 이미지">
 
                     <div class="game-info">
-                        <span class="game-genre">FPS(First-Person Shooter)</span>
-                        <h3>BATTLE GROUND</h3>
+                        <span class="game-genre">MOBA(Multiplayer Online Battle Arena)</span>
+                        <h3>League of lengends</h3>
                         <p>5명의 팀원이 각자 챔피언을 조작해 적의 포탑을 부수고 최종적으로 적의 넥서스를 먼저 파괴하는 5대5 MOBA 전략 게임입니다.</p>
 
                         <div class="game-bottom">
@@ -123,10 +123,9 @@
 
                 <article class="game-card">
                     <img src="../image/BAG.jpg" alt="BATTLEGROUND 게임 이미지">
-
                     <div class="game-info">
-                        <span class="game-genre">MOBA(Multiplayer Online Battle Arena)</span>
-                        <h3>League of legend</h3>
+                        <span class="game-genre">FPS(First-Person Shooter)</span>
+                        <h3>BATTLEGROUND</h3>
                         <p>"파밍의 긴장감 끝에 찾아오는 생존의 짜릿함, 100명 중 최후의 1인이 되는 배틀로얄의 근본.".</p>
 
                         <div class="game-bottom">
@@ -168,6 +167,30 @@
                         </div>
                     </div>
                 </article>
+            </div>
+        </section>
+
+        <section class="recommend-section">
+            <div class="section-title">
+                <h2>추천 게임</h2>
+            </div>
+
+            <div class="recommend-box">
+                <div class="recommend-controls">
+                    <select id="recommendGenre" aria-label="추천 장르 선택">
+                        <option value="all">전체</option>
+                        <option value="fps">FPS</option>
+                        <option value="moba">MOBA</option>
+                        <option value="sports">Sports</option>
+                        <option value="rpg">RPG</option>
+                    </select>
+
+                    <button type="button" id="recommendBtn">추천 받기</button>
+                </div>
+
+                <div class="recommend-result" id="recommendResult">
+                    <p>원하는 장르를 고르고 추천 받기를 눌러보세요.</p>
+                </div>
             </div>
         </section>
 

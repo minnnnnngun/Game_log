@@ -4,6 +4,15 @@ const saveButtons = document.querySelectorAll(".save-btn");
 // HTML에서 class가 "game-card"인 모든 게임 카드를 찾아서 gameCards에 저장합니다.
 const gameCards = document.querySelectorAll(".game-card");
 
+// 추천 장르를 고르는 select 요소를 찾아서 recommendGenre에 저장합니다.
+const recommendGenre = document.getElementById("recommendGenre");
+
+// 추천 받기 버튼을 찾아서 recommendBtn에 저장합니다.
+const recommendBtn = document.getElementById("recommendBtn");
+
+// 추천 결과가 표시될 영역을 찾아서 recommendResult에 저장합니다.
+const recommendResult = document.getElementById("recommendResult");
+
 // 최근 본 게임 목록이 들어갈 영역을 찾아서 recentList에 저장합니다.
 const recentList = document.getElementById("recentList");
 
@@ -78,6 +87,9 @@ function getGameDataFromCard(gameCard) {
     // 카드 안의 평점 문구를 찾아서 gameRating에 저장합니다.
     const gameRating = gameCard.querySelector(".game-rating");
 
+    // 카드 안의 게임 설명 문구를 찾아서 gameDescription에 저장합니다.
+    const gameDescription = gameCard.querySelector("p");
+
     // 최근 본 게임 목록에서 사용할 객체 형태로 데이터를 돌려줍니다.
     return {
         // 게임 제목 텍스트를 name에 저장합니다.
@@ -86,11 +98,127 @@ function getGameDataFromCard(gameCard) {
         genre: gameGenre.textContent,
         // 게임 평점 텍스트를 rating에 저장합니다.
         rating: gameRating.textContent,
+        // 게임 설명 텍스트를 description에 저장합니다.
+        description: gameDescription.textContent,
         // 게임 이미지 주소를 imageSrc에 저장합니다.
         imageSrc: gameImage.getAttribute("src"),
         // 게임 이미지 설명을 imageAlt에 저장합니다.
         imageAlt: gameImage.getAttribute("alt")
     };
+}
+
+// 추천 결과 카드 하나를 화면에 만들고 돌려주는 함수입니다.
+function createRecommendCard(game) {
+    // article 태그를 새로 만들어 추천 게임 카드로 사용합니다.
+    const recommendCard = document.createElement("article");
+
+    // 새 카드에 recommend-card 클래스를 붙여 CSS 스타일이 적용되게 합니다.
+    recommendCard.classList.add("recommend-card");
+
+    // img 태그를 새로 만들어 추천 게임 이미지를 표시합니다.
+    const recommendImage = document.createElement("img");
+
+    // 추천 게임 데이터에서 이미지 주소를 넣습니다.
+    recommendImage.src = game.imageSrc;
+
+    // 추천 게임 데이터에서 이미지 설명을 넣습니다.
+    recommendImage.alt = game.imageAlt;
+
+    // div 태그를 새로 만들어 추천 게임 텍스트 정보를 담습니다.
+    const recommendInfo = document.createElement("div");
+
+    // span 태그를 새로 만들어 추천 게임 장르를 표시합니다.
+    const recommendGenreText = document.createElement("span");
+
+    // 추천 게임 데이터에서 장르를 넣습니다.
+    recommendGenreText.textContent = game.genre;
+
+    // h3 태그를 새로 만들어 추천 게임 제목을 표시합니다.
+    const recommendTitle = document.createElement("h3");
+
+    // 추천 게임 데이터에서 제목을 넣습니다.
+    recommendTitle.textContent = game.name;
+
+    // p 태그를 새로 만들어 추천 게임 설명을 표시합니다.
+    const recommendDescription = document.createElement("p");
+
+    // 추천 게임 데이터에서 설명을 넣습니다.
+    recommendDescription.textContent = game.description;
+
+    // strong 태그를 새로 만들어 추천 게임 평점을 표시합니다.
+    const recommendRating = document.createElement("strong");
+
+    // 추천 게임 데이터에서 평점을 넣습니다.
+    recommendRating.textContent = game.rating;
+
+    // 텍스트 정보 영역에 장르, 제목, 설명, 평점을 차례대로 넣습니다.
+    recommendInfo.append(recommendGenreText, recommendTitle, recommendDescription, recommendRating);
+
+    // 추천 카드에 이미지와 텍스트 정보 영역을 넣습니다.
+    recommendCard.append(recommendImage, recommendInfo);
+
+    // 완성된 추천 게임 카드를 돌려줍니다.
+    return recommendCard;
+}
+
+// 선택한 장르와 게임 장르가 맞는지 확인하는 함수입니다.
+function isSameRecommendGenre(game, selectedGenre) {
+    // 전체를 선택했다면 모든 게임이 추천 대상이 됩니다.
+    if (selectedGenre === "all") {
+        // 전체 선택은 항상 true를 돌려줍니다.
+        return true;
+    }
+
+    // 비교하기 쉽도록 게임 장르 문구를 소문자로 바꿉니다.
+    const gameGenre = game.genre.toLowerCase();
+
+    // 게임 장르 문구 안에 선택한 장르 단어가 들어있는지 확인합니다.
+    return gameGenre.includes(selectedGenre);
+}
+
+// 선택한 장르에 맞는 게임들을 전부 추천하는 함수입니다.
+function recommendGame() {
+    // 모든 게임 카드에서 추천에 필요한 데이터만 배열로 만듭니다.
+    const games = Array.from(gameCards).map((gameCard) => getGameDataFromCard(gameCard));
+
+    // 사용자가 선택한 추천 장르 값을 가져옵니다.
+    const selectedGenre = recommendGenre.value;
+
+    // 선택한 장르와 맞는 게임만 골라냅니다.
+    const filteredGames = games.filter((game) => isSameRecommendGenre(game, selectedGenre));
+
+    // 추천 결과 영역에 결과가 있다는 표시 클래스를 일단 제거합니다.
+    recommendResult.classList.remove("has-results");
+
+    // 혹시 추천할 게임이 하나도 없는지 확인합니다.
+    if (filteredGames.length === 0) {
+        // 추천 결과 영역을 비웁니다.
+        recommendResult.textContent = "";
+
+        // 추천할 게임이 없다는 문구를 넣습니다.
+        const emptyMessage = document.createElement("p");
+
+        // 안내 문구 내용을 작성합니다.
+        emptyMessage.textContent = "해당 장르의 추천 게임이 없습니다.";
+
+        // 추천 결과 영역에 안내 문구를 추가합니다.
+        recommendResult.append(emptyMessage);
+
+        // 아래 코드를 더 실행하지 않고 함수를 끝냅니다.
+        return;
+    }
+
+    // 기존 추천 결과를 비웁니다.
+    recommendResult.textContent = "";
+
+    // 추천 결과 영역에 결과가 있다는 표시 클래스를 추가합니다.
+    recommendResult.classList.add("has-results");
+
+    // 선택한 장르와 맞는 게임들을 하나씩 반복합니다.
+    filteredGames.forEach((game) => {
+        // 추천 게임 카드를 만들어 추천 결과 영역에 추가합니다.
+        recommendResult.append(createRecommendCard(game));
+    });
 }
 
 // 최근 본 게임 카드 하나를 화면에 만들고 돌려주는 함수입니다.
@@ -342,6 +470,9 @@ saveConfirm.addEventListener("click", () => {
 
 // 모달에서 "아니오" 버튼을 클릭하면 모달만 닫습니다.
 saveCancel.addEventListener("click", closeSaveModal);
+
+// 추천 받기 버튼을 클릭했을 때 실행할 코드를 등록합니다.
+recommendBtn.addEventListener("click", recommendGame);
 
 // 최근 본 게임 전체 삭제 버튼을 클릭했을 때 실행할 코드를 등록합니다.
 clearRecentBtn.addEventListener("click", () => {

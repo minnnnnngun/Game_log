@@ -16,6 +16,7 @@
     --yellow: #facc15;
 }
 
+
 body {
     min-height: 100vh;
     background:
@@ -37,14 +38,14 @@ select {
 }
 
 .linebox {
-    width: min(1280px, calc(100% - 36px));
+    width: 100vw;
     min-height: 100vh;
-    margin: 44px auto;
+    margin: 0;
     overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 8px;
+    border: none;
+    border-radius: 0;
     background: rgba(7, 16, 31, 0.95);
-    box-shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
+    box-shadow: none;
 }
 
 header {
@@ -72,6 +73,7 @@ nav {
     flex: 1;
     display: flex;
     align-items: center;
+
 }
 
 nav ul {
@@ -80,6 +82,7 @@ nav ul {
     justify-content: center;
     gap: 56px;
     list-style: none;
+    transform: translateX(-100px);
 }
 
 nav a {
@@ -179,8 +182,8 @@ main {
     justify-content: space-between;
     overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(9, 18, 40, 0.96) 0%, rgba(20, 35, 78, 0.86) 55%, rgba(14, 25, 61, 0.88) 100%),
-        url("../image/Valorant-Logo-500x281.png") center/cover no-repeat;
+        radial-gradient(circle at 78% 42%, rgba(139, 92, 246, 0.22), transparent 26%),
+        linear-gradient(90deg, rgba(9, 18, 40, 0.98) 0%, rgba(20, 35, 78, 0.9) 58%, rgba(14, 25, 61, 0.95) 100%);
 }
 
 .genre-hero::after {
@@ -211,8 +214,8 @@ main {
 }
 
 .hero-art img {
-    width: 230px;
-    height: 150px;
+    width: 400px;
+    height: 400px;
     object-fit: contain;
     filter: drop-shadow(0 18px 28px rgba(91, 53, 201, 0.48));
 }
