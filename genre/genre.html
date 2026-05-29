@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameLog - 장르</title>
+    <link rel="stylesheet" href="genre.css">
+</head>
+
+<body>
+<div class="linebox">
+    <header>
+        <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="../Index/Index.html">홈</a></li>
+                <li><a href="../genre/genre.html" class="active">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html">즐겨찾기</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <a href="../search/search.html" class="search-icon" aria-label="검색"></a>
+                <div class="profile-icon" id="profile">
+                    <img src="../image/circle-user-solid-full%20(1).svg" alt="프로필" class="profile profile-default">
+                    <img src="../image/circle-user-solid-full%20(2).svg" alt="" class="profile profile-hover">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="genre-hero">
+            <div class="hero-copy">
+                <h1>장르별 게임 탐색</h1>
+                <p>다양한 장르의 게임을 만나보세요.</p>
+            </div>
+            <div class="hero-art">
+                <img src="../image/cutemin.png" alt="게임 컨트롤러 분위기 이미지">
+            </div>
+        </section>
+
+        <section class="genre-layout" aria-label="장르별 게임 목록">
+            <aside class="genre-sidebar">
+                <h2>장르 목록</h2>
+                <button type="button" class="genre-filter active" data-genre="all"><span>▦</span>전체</button>
+                <button type="button" class="genre-filter" data-genre="action"><span>⚔</span>액션</button>
+                <button type="button" class="genre-filter" data-genre="rpg"><span>♜</span>RPG</button>
+                <button type="button" class="genre-filter" data-genre="fps"><span>⌖</span>FPS</button>
+                <button type="button" class="genre-filter" data-genre="adventure"><span>◉</span>어드벤처</button>
+                <button type="button" class="genre-filter" data-genre="sports"><span>●</span>스포츠</button>
+                <button type="button" class="genre-filter" data-genre="racing"><span>⚑</span>레이싱</button>
+                <button type="button" class="genre-filter" data-genre="strategy"><span>♖</span>전략</button>
+                <button type="button" class="genre-filter" data-genre="simulation"><span>☍</span>시뮬레이션</button>
+                <button type="button" class="genre-filter" data-genre="puzzle"><span>✤</span>퍼즐</button>
+                <button type="button" class="genre-filter" data-genre="horror"><span>☠</span>공포</button>
+            </aside>
+
+            <div class="games-area">
+                <div class="games-top">
+                    <div>
+                        <h2>전체 게임 <span id="gameCount">총 12개</span></h2>
+                    </div>
+
+                    <label class="sort-box">
+                        <span class="sr-only">정렬</span>
+                        <select id="sortSelect">
+                            <option value="popular">인기순</option>
+                            <option value="recent">최신순</option>
+                            <option value="rating">평점순</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="game-grid" id="gameGrid"></div>
+
+                <div class="pagination" id="pagination" aria-label="페이지 이동"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+            <p>게임을 기록하고,<br>재미를 발견하는 공간</p>
+            <div class="socials" aria-label="SNS">
+                <span>●</span>
+                <span>▶</span>
+                <span>◆</span>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <div>
+                <h3>서비스</h3>
+                <a href="../Index/Index.html">홈</a>
+                <a href="../genre/genre.html">장르</a>
+                <a href="../search/search.html">검색</a>
+                <a href="../favorites/favorites.html">즐겨찾기</a>
+            </div>
+            <div>
+                <h3>고객센터</h3>
+                <a href="#">공지사항</a>
+                <a href="#">자주 묻는 질문</a>
+                <a href="#">문의하기</a>
+            </div>
+            <div>
+                <h3>회사 정보</h3>
+                <a href="#">회사 소개</a>
+                <a href="#">이용 약관</a>
+                <a href="#">개인정보 처리방침</a>
+            </div>
+        </div>
+
+        <p class="copyright">© 2024 GameLog. All rights reserved.</p>
+    </footer>
+</div>
+
+<script src="genre.js"></script>
+</body>
+</html>

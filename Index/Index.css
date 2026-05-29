@@ -219,6 +219,7 @@ main {
     border: 1px solid #334155;
     border-radius: 8px;
     background-color: #1e293b;
+    cursor: pointer;
     transition: 0.3s;
 }
 
@@ -284,6 +285,85 @@ main {
 
 .game-bottom button:hover {
     background-color: #6d28d9;
+}
+
+.recent-section {
+    margin-top: 60px;
+}
+
+.clear-recent-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #475569;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.clear-recent-btn:hover {
+    background-color: #334155;
+}
+
+.clear-recent-btn.hidden {
+    display: none;
+}
+
+.recent-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.recent-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #1e293b;
+}
+
+.recent-card img {
+    width: 74px;
+    height: 74px;
+    object-fit: contain;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #111827;
+}
+
+.recent-card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.recent-card span {
+    color: #a5b4fc;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.recent-card p {
+    margin-top: 8px;
+    color: #facc15;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.recent-empty {
+    padding: 22px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+}
+
+.recent-empty.hidden {
+    display: none;
 }
 
 .save-btn.saved {

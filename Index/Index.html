@@ -17,7 +17,7 @@
         <nav>
             <ul>
                 <li><a href="index.html" class="active">홈</a></li>
-                <li><a href="genre.html">장르</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
                 <li><a href="../search.html">검색</a></li>
                 <li><a href="favorites.html">즐겨찾기</a></li>
             </ul>
@@ -39,7 +39,7 @@
                     <div class="hero-text">
                         <h1>게임을 기록하고,<br>재미를 발견하다</h1>
                         <p>다양한 게임 정보를 한곳에서 확인해보세요.</p>
-                        <a href="genre.html" class="cta-btn">게임 둘러보기</a>
+                        <a href="../genre/genre.html" class="cta-btn">게임 둘러보기</a>
                     </div>
 
                     <img src="../image/cutemin.png" alt="게임 이미지" class="hero-image">
@@ -59,7 +59,7 @@
                     <div class="hero-text">
                         <h1>장르별 게임을<br>쉽게 탐색하세요</h1>
                         <p>FPS, RPG, 스포츠 게임을 분류해서 볼 수 있습니다.</p>
-                        <a href="genre.html" class="cta-btn">장르 보러가기</a>
+                        <a href="../genre/genre.html" class="cta-btn">장르 보러가기</a>
                     </div>
 
                     <img src="../image/mingeon.png" alt="게임 이미지" class="hero-image3">
@@ -71,7 +71,7 @@
         <section class="game-section">
             <div class="section-title">
                 <h2>인기 게임</h2>
-                <a href="../genre/gerne.html">전체보기</a>
+                <a href="../genre/genre.html">전체보기</a>
             </div>
 
             <div class="game-list">
@@ -169,6 +169,16 @@
                     </div>
                 </article>
             </div>
+        </section>
+
+        <section class="recent-section">
+            <div class="section-title">
+                <h2>최근 본 게임</h2>
+                <button type="button" class="clear-recent-btn" id="clearRecentBtn">전체 삭제</button>
+            </div>
+
+            <div class="recent-list" id="recentList"></div>
+            <p class="recent-empty" id="recentEmpty">최근 본 게임이 없습니다.</p>
         </section>
     </main>
 
