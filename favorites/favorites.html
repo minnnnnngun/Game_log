@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameLog - 즐겨찾기</title>
+    <link rel="stylesheet" href="favorites.css">
+</head>
+<body>
+<div class="linebox">
+    <header>
+        <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="../Index/Index.html">홈</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html" class="active">즐겨찾기</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="profile-icon" id="profile">
+                    <img src="../image/circle-user-solid-full%20(1).svg" alt="프로필" class="profile profile-default">
+                    <img src="../image/circle-user-solid-full%20(2).svg" alt="" class="profile profile-hover">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="favorites-panel">
+            <div>
+                <p class="eyebrow">Saved Games</p>
+                <h1>나중에 다시 볼 게임</h1>
+                <p class="panel-note">홈에서 저장한 게임이 여기에 쌓입니다.</p>
+            </div>
+
+            <button type="button" id="clearFavorites">비우기</button>
+        </section>
+
+        <section class="favorite-list" id="favoriteList" aria-label="즐겨찾기 게임 목록"></section>
+        <p class="empty-message" id="emptyMessage">아직 저장한 게임이 없습니다.</p>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+            <p>해본 게임과<br>해보고 싶은 게임을 남기는 곳</p>
+        </div>
+
+        <p class="copyright">© 2024 GameLog. All rights reserved.</p>
+    </footer>
+</div>
+
+<script src="favorites.js"></script>
+</body>
+</html>
