@@ -1,278 +1,225 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameLog</title>
-    <link rel="stylesheet" href="Index.css" />
-  </head>
+    <link rel="stylesheet" href="Index.css">
+</head>
 
-  <body>
-    <div class="linebox">
-      <header>
-        <div class="logo">Game<span>Log</span></div>
+<body>
 
-        <nav>
-          <ul>
-            <li><a href="index.html" class="active">홈</a></li>
-            <li><a href="../genre/genre.html">장르</a></li>
-            <li><a href="../search.html">검색</a></li>
-            <li><a href="favorites.html">즐겨찾기</a></li>
-          </ul>
+<div class="linebox">
 
-          <div class="nav-icons">
-            <div class="profile-icon" id="profile">
-              <img
-                src="../image/circle-user-solid-full%20(1).svg"
-                alt="프로필"
-                class="profile profile-default"
-              />
-              <img
-                src="../image/circle-user-solid-full%20(2).svg"
-                alt=""
-                class="profile profile-hover"
-              />
+    <header>
+        <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="../Index/Index.html" class="active">홈</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html">즐겨찾기</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="profile-icon" id="profile">
+                    <img src="../image/circle-user-solid-full%20(1).svg" alt="프로필" class="profile profile-default">
+                    <img src="../image/circle-user-solid-full%20(2).svg" alt="" class="profile profile-hover">
+                </div>
             </div>
-          </div>
         </nav>
-      </header>
+    </header>
 
-      <main>
+    <main>
         <section class="hero-slider">
-          <div class="slides">
-            <div class="slide">
-              <div class="hero-text">
-                <h1>게임을 기록하고,<br />재미를 발견하다</h1>
-                <p>다양한 게임 정보를 한곳에서 확인해보세요.</p>
-                <a href="../genre/genre.html" class="cta-btn">게임 둘러보기</a>
-              </div>
+            <div class="slides">
 
-              <img
-                src="../image/cutemin.png"
-                alt="게임 이미지"
-                class="hero-image"
-              />
+                <div class="slide">
+                    <div class="hero-text">
+                        <h1>요즘 뭐 하지?<br>했던 게임부터 적어두기</h1>
+                        <p>클리어한 게임, 다시 켜고 싶은 게임, 친구한테 추천할 게임을 한곳에 모아둡니다.</p>
+                        <a href="../genre/genre.html" class="cta-btn">목록 열어보기</a>
+                    </div>
+
+                    <img src="../image/cutemin.png" alt="게임 이미지" class="hero-image">
+                </div>
+
+                <div class="slide">
+                    <div class="hero-text">
+                        <h1>재밌어 보이면<br>일단 저장</h1>
+                        <p>나중에 할 게임을 까먹지 않게 짧게 표시해둘 수 있어요.</p>
+                        <a href="../favorites/favorites.html" class="cta-btn">저장한 게임 보기</a>
+                    </div>
+
+                    <img src="../image/angry.png" alt="게임 이미지" class="hero-image2">
+                </div>
+
+                <div class="slide">
+                    <div class="hero-text">
+                        <h1>오늘은 FPS?<br>아니면 조용한 RPG?</h1>
+                        <p>장르별로 훑어보고, 끌리는 게임만 골라보세요.</p>
+                        <a href="../genre/genre.html" class="cta-btn">장르별로 보기</a>
+                    </div>
+
+                    <img src="../image/mingeon.png" alt="게임 이미지" class="hero-image3">
+                </div>
+
             </div>
-
-            <div class="slide">
-              <div class="hero-text">
-                <h1>나만의 게임 리스트를<br />만들어보세요</h1>
-                <p>즐겨찾기 기능으로 게임을 저장할 수 있습니다.</p>
-                <a href="favorites.html" class="cta-btn">즐겨찾기 보기</a>
-              </div>
-
-              <img
-                src="../image/angry.png"
-                alt="게임 이미지"
-                class="hero-image2"
-              />
-            </div>
-
-            <div class="slide">
-              <div class="hero-text">
-                <h1>장르별 게임을<br />쉽게 탐색하세요</h1>
-                <p>FPS, RPG, 스포츠 게임을 분류해서 볼 수 있습니다.</p>
-                <a href="../genre/genre.html" class="cta-btn">장르 보러가기</a>
-              </div>
-
-              <img
-                src="../image/mingeon.png"
-                alt="게임 이미지"
-                class="hero-image3"
-              />
-            </div>
-          </div>
         </section>
 
         <section class="game-section">
-          <div class="section-title">
-            <h2>인기 게임</h2>
-            <a href="../genre/genre.html">전체보기</a>
-          </div>
+            <div class="section-title">
+                <h2>인기 게임</h2>
+                <a href="../genre/genre.html">전체보기</a>
+            </div>
 
-          <div class="game-list">
-            <article class="game-card">
-              <img
-                src="../image/Valorant-Logo-500x281.png"
-                alt="valorant 게임 이미지"
-              />
+            <div class="game-list">
+                <article class="game-card">
+                    <img src="../image/Valorant-Logo-500x281.png" alt="valorant 게임 이미지">
 
-              <div class="game-info">
-                <span class="game-genre">FPS(First-Person Shooter)</span>
-                <h3>Valorant</h3>
-                <p>
-                  Valorant는 라이엇 게임즈에서 개발한 5 대 5 전술 1인칭
-                  슈팅(FPS) 게임으로, 각 캐릭터의 고유한 스킬과 정밀한 총기
-                  사격을 조합해 상대와 싸우는 게임입니다.
-                </p>
+                    <div class="game-info">
+                        <span class="game-genre">FPS</span>
+                        <h3>Valorant</h3>
+                        <p>한 라운드만 하려고 켰다가 조준 연습까지 하게 되는 5 대 5 전술 슈팅.</p>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 4.3</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 4.3</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
 
-            <article class="game-card">
-              <img
-                src="../image/Overwatch-Logo-640x400.png"
-                alt="overwatch 게임 이미지"
-              />
+                <article class="game-card">
+                    <img src="../image/Overwatch-Logo-640x400.png" alt="overwatch 게임 이미지">
 
-              <div class="game-info">
-                <span class="game-genre">FPS(First-Person Shooter)</span>
-                <h3>Overwatch</h3>
-                <p>
-                  오버워치는 각자 고유한 스킬을 가진 영웅들을 선택해 팀을
-                  이루고, 거점 점령이나 화물 운송 등의 목표를 달성하기 위해
-                  협동하여 싸우는 팀 기반 하이퍼 FPS 게임입니다.
-                </p>
+                    <div class="game-info">
+                        <span class="game-genre">FPS</span>
+                        <h3>Overwatch</h3>
+                        <p>영웅 조합이 맞아떨어지는 순간이 시원한 팀 기반 슈팅.</p>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 4.5</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 4.5</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
 
-            <article class="game-card">
-              <img
-                src="../image/League%20of%20lengends%20(1).png"
-                alt="LOL 게임 이미지"
-              />
+                <article class="game-card">
+                    <img src="../image/League%20of%20lengends%20(1).png" alt="LOL 게임 이미지">
 
-              <div class="game-info">
-                <span class="game-genre">Action</span>
-                <h3>League of lengends</h3>
-                <p>
-                  5명의 팀원이 각자 챔피언을 조작해 적의 포탑을 부수고
-                  최종적으로 적의 넥서스를 먼저 파괴하는 5대5 MOBA 전략
-                  게임입니다.
-                </p>
+                    <div class="game-info">
+                        <span class="game-genre">MOBA</span>
+                        <h3>League of Legends</h3>
+                        <p>한 판 안에 라인전, 한타, 역전이 다 들어있는 익숙한 5 대 5 전략 게임.</p>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 5.0</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 5.0</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
 
-            <article class="game-card">
-              <img src="../image/BAG.jpg" alt="BATTLEGROUND 게임 이미지" />
-              <div class="game-info">
-                <span class="game-genre">FPS(First-Person Shooter)</span>
-                <h3>BATTLEGROUND</h3>
-                <p>
-                  "파밍의 긴장감 끝에 찾아오는 생존의 짜릿함, 100명 중 최후의
-                  1인이 되는 배틀로얄의 근본.".
-                </p>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 4.3</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
+                <article class="game-card">
+                    <img src="../image/BAG.jpg" alt="BATTLEGROUND 게임 이미지">
+                    <div class="game-info">
+                        <span class="game-genre">배틀로얄</span>
+                        <h3>BATTLEGROUND</h3>
+                        <p>조용히 파밍하다가 발소리 하나에 온몸이 긴장되는 배틀로얄.</p>
 
-            <article class="game-card">
-              <img src="../image/FC.png" alt="FC online 게임 이미지" />
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 4.3</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
 
-              <div class="game-info">
-                <span class="game-genre">sports</span>
-                <h3>FC online</h3>
-                <p>
-                  내 선수단으로 나만의 팀을 완성하는 감독의 재미와, 찰나의
-                  손맛으로 승부를 가르는 짜릿한 축구 대전 게임"
-                </p>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 4.1</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
+                <article class="game-card">
+                    <img src="../image/FC.png" alt="FC online 게임 이미지">
 
-            <article class="game-card">
-              <img src="../image/maple.jpg" alt="mapleStory 게임 이미지" />
+                    <div class="game-info">
+                        <span class="game-genre">스포츠</span>
+                        <h3>FC Online</h3>
+                        <p>스쿼드 짜는 재미와 찰나의 패스 타이밍이 같이 오는 축구 게임.</p>
 
-              <div class="game-info">
-                <span class="game-genre">RPG(Role-Playing Game)</span>
-                <h3>MapleStroy</h3>
-                <p>
-                  "끝없는 인내와 시간, 그리고 막대한 자본을 요구하지만, 그만큼
-                  확실한 캐릭터 성장과 특유의 감성으로 유저를 붙잡아두는 악마의
-                  2D MMORPG."
-                </p>
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 4.1</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
 
-                <div class="game-bottom">
-                  <span class="game-rating">평점 4.4</span>
-                  <button type="button" class="save-btn">저장</button>
-                </div>
-              </div>
-            </article>
-          </div>
+
+
+                <article class="game-card">
+                    <img src="../image/maple.jpg" alt="mapleStory 게임 이미지">
+
+                    <div class="game-info">
+                        <span class="game-genre">RPG</span>
+                        <h3>MapleStory</h3>
+                        <p>오래된 감성과 성장 욕심이 묘하게 다시 손을 부르는 2D MMORPG.</p>
+
+                        <div class="game-bottom">
+                            <span class="game-rating">평점 4.4</span>
+                            <button type="button" class="save-btn">저장</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section class="recommend-section">
-          <div class="section-title">
-            <h2>추천 게임</h2>
-          </div>
-
-          <div class="recommend-box">
-            <div class="recommend-controls">
-              <select id="recommendGenre" aria-label="추천 장르 선택">
-                <option value="all">전체</option>
-                <option value="fps">FPS</option>
-                <option value="sports">Sports</option>
-                <option value="rpg">RPG</option>
-                <option value="adventure">Adventure</option>
-                <option value="action">Action</option>
-              </select>
-
-              <a href="../genre/genre.html" class="morelink" id="moreLink"
-                >더 많은 게임을 보고싶다면?</a
-              >
-              <button type="button" id="recommendBtn">추천 받기</button>
+            <div class="section-title">
+                <h2>추천 게임</h2>
             </div>
 
-            <div class="recommend-result" id="recommendResult">
-              <p>원하는 장르를 고르고 추천 받기를 눌러보세요.</p>
+            <div class="recommend-box">
+                <div class="recommend-controls">
+                    <select id="recommendGenre" aria-label="추천 장르 선택">
+                        <option value="all">전체</option>
+                        <option value="fps">FPS</option>
+                        <option value="moba">MOBA</option>
+                        <option value="sports">Sports</option>
+                        <option value="rpg">RPG</option>
+                    </select>
+
+                    <button type="button" id="recommendBtn">골라줘</button>
+                </div>
+
+                <div class="recommend-result" id="recommendResult">
+                    <p>오늘 끌리는 장르를 하나 골라보세요.</p>
+                </div>
             </div>
-          </div>
         </section>
 
         <section class="recent-section">
-          <div class="section-title">
-            <h2>최근 본 게임</h2>
-            <button type="button" class="clear-recent-btn" id="clearRecentBtn">
-              전체 삭제
-            </button>
-          </div>
+            <div class="section-title">
+                <h2>최근 본 게임</h2>
+                <button type="button" class="clear-recent-btn" id="clearRecentBtn">전체 삭제</button>
+            </div>
 
-          <div class="recent-list" id="recentList"></div>
-          <p class="recent-empty" id="recentEmpty">최근 본 게임이 없습니다.</p>
+            <div class="recent-list" id="recentList"></div>
+            <p class="recent-empty" id="recentEmpty">최근 본 게임이 없습니다.</p>
         </section>
-      </main>
-    </div>
+    </main>
 
-    <div class="save-modal" id="saveModal" aria-hidden="true">
-      <div
-        class="save-modal-box"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="saveModalTitle"
-      >
+</div>
+
+<div class="save-modal" id="saveModal" aria-hidden="true">
+    <div class="save-modal-box" role="dialog" aria-modal="true" aria-labelledby="saveModalTitle">
         <h2 id="saveModalTitle">게임 저장</h2>
         <span id="saveGameName"></span>
         <p id="saveModalMessage">이 게임을 저장하시겠습니까?</p>
 
         <div class="save-modal-actions">
-          <button type="button" class="modal-yes" id="saveConfirm">네</button>
-          <button type="button" class="modal-no" id="saveCancel">아니오</button>
+            <button type="button" class="modal-yes" id="saveConfirm">네</button>
+            <button type="button" class="modal-no" id="saveCancel">아니오</button>
         </div>
-      </div>
     </div>
+</div>
 
-    <script src="Index.js"></script>
-  </body>
+<script src="Index.js"></script>
+</body>
 </html>
