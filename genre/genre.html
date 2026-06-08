@@ -6,6 +6,8 @@
     <title>GameLog - 장르</title>
     <link rel="stylesheet" href="genre.css">
 </head>
+<body>
+
 <div class="linebox">
     <header>
         <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
@@ -26,14 +28,15 @@
             </div>
         </nav>
     </header>
-<body>
+
+
 
 
     <main>
         <section class="genre-hero">
             <div class="hero-copy">
-                <h1>장르별 게임 탐색</h1>
-                <p>다양한 장르의 게임을 만나보세요.</p>
+                <h1>오늘 하고 싶은 느낌으로 고르기</h1>
+                <p>빠른 게임, 오래 붙잡는 게임, 가볍게 켤 게임을 장르별로 정리했어요.</p>
             </div>
             <div class="hero-art">
                 <img src="../image/cutemin.png" alt="게임 컨트롤러 분위기 이미지" class="cute-min">
@@ -42,7 +45,7 @@
 
         <section class="genre-layout" aria-label="장르별 게임 목록">
             <aside class="genre-sidebar">
-                <h2>장르 목록</h2>
+                <h2>장르</h2>
                 <button type="button" class="genre-filter active" data-genre="all"><span>▦</span>전체</button>
                 <button type="button" class="genre-filter" data-genre="action"><span>⚔</span>액션</button>
                 <button type="button" class="genre-filter" data-genre="rpg"><span>♜</span>RPG</button>
@@ -59,7 +62,7 @@
             <div class="games-area">
                 <div class="games-top">
                     <div>
-                        <h2>전체 게임 <span id="gameCount">총 12개</span></h2>
+                        <h2>게임 목록 <span id="gameCount">총 12개</span></h2>
                     </div>
 
                     <label class="sort-box">
@@ -75,7 +78,7 @@
                 <form class="add-game-form" id="addGameForm" autocomplete="off">
                     <div class="form-title">
                         <h3>게임 추가</h3>
-                        <p>새 게임 정보를 입력하면 장르 목록에 바로 추가됩니다.</p>
+                        <p>빠진 게임이 있으면 여기서 바로 적어두세요.</p>
                     </div>
 
                     <div class="form-grid">
@@ -85,8 +88,24 @@
                         </label>
 
                         <label>
-                            장르
-                            <select id="addGenre" required>
+                            장르 1
+                            <select id="addGenre" class="add-genre-select" required>
+                                <option value="action">액션</option>
+                                <option value="rpg">RPG</option>
+                                <option value="fps">FPS</option>
+                                <option value="adventure">어드벤처</option>
+                                <option value="sports">스포츠</option>
+                                <option value="racing">레이싱</option>
+                                <option value="strategy">전략</option>
+                                <option value="simulation">시뮬레이션</option>
+                                <option value="puzzle">퍼즐</option>
+                                <option value="horror">공포</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            장르 2
+                            <select id="addGenre2" class="add-genre-select" required>
                                 <option value="action">액션</option>
                                 <option value="rpg">RPG</option>
                                 <option value="fps">FPS</option>
@@ -121,7 +140,7 @@
                         </label>
                     </div>
 
-                    <button type="submit">추가하기</button>
+                    <button type="submit">목록에 추가</button>
                 </form>
 
                 <div class="game-grid" id="gameGrid"></div>
@@ -134,7 +153,7 @@
     <footer>
         <div class="footer-brand">
             <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
-            <p>게임을 기록하고,<br>재미를 발견하는 공간</p>
+            <p>해본 게임과<br>해보고 싶은 게임을 남기는 곳</p>
             <div class="socials" aria-label="SNS">
                 <span>●</span>
                 <span>▶</span>
@@ -169,6 +188,37 @@
         <div class="delete-modal-actions">
             <button type="button" class="delete-yes" id="deleteConfirm">네</button>
             <button type="button" class="delete-no" id="deleteCancel">아니오</button>
+        </div>
+    </div>
+</div>
+
+<div class="detail-modal" id="detailModal" aria-hidden="true">
+    <div class="detail-modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+        <button type="button" class="detail-close" id="detailClose" aria-label="세부정보 닫기">×</button>
+        <img src="../image/search.png" alt="" class="detail-image" id="detailImage">
+
+        <div class="detail-content">
+            <h2 id="detailTitle">게임 이름</h2>
+            <div class="detail-genres" id="detailGenres"></div>
+
+            <dl class="detail-list">
+                <div>
+                    <dt>평점</dt>
+                    <dd id="detailRating">0.0</dd>
+                </div>
+                <div>
+                    <dt>출시연도</dt>
+                    <dd id="detailYear">2024</dd>
+                </div>
+                <div>
+                    <dt>인기점수</dt>
+                    <dd id="detailPopularity">0</dd>
+                </div>
+                <div>
+                    <dt>구분</dt>
+                    <dd id="detailType">기본 게임</dd>
+                </div>
+            </dl>
         </div>
     </div>
 </div>

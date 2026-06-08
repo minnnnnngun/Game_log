@@ -1,47 +1,39 @@
-/* 전체 요소의 기본 여백을 없애고, 크기 계산을 쉽게 맞춤. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 자주 쓰는 색상을 변수로 저장해서 아래에서 반복 사용함. */
 :root {
-  --bg: #07101f;
-  --panel: #111a2c;
-  --panel-light: #172238;
-  --line: rgba(148, 163, 184, 0.18);
-  --text: #f8fafc;
-  --muted: #aeb8ca;
-  --purple: #8b5cf6;
-  --purple-dark: #5b35c9;
-  --yellow: #facc15;
+  --bg: #10131a;
+  --panel: #1c222b;
+  --panel-light: #242b35;
+  --line: rgba(221, 210, 188, 0.16);
+  --text: #f5f1e8;
+  --muted: #c8c0b1;
+  --purple: #2f7c76;
+  --purple-dark: #22645f;
+  --yellow: #f0b35a;
 }
 
-/* 페이지 전체 배경과 기본 글자 스타일을 설정함. */
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 84% 20%, rgba(80, 58, 177, 0.2), transparent 28%),
-    linear-gradient(180deg, #050b17 0%, #0b1323 48%, #0c1423 100%);
+  background: #10131a;
   color: var(--text);
   font-family: Arial, "Noto Sans KR", sans-serif;
   overflow-x: hidden;
 }
 
-/* 링크의 밑줄을 없애고 부모 색상을 그대로 사용하게 함. */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* 버튼과 select가 body의 폰트를 그대로 쓰게 함. */
 button,
 select {
   font: inherit;
 }
 
-/* 전체 페이지를 감싸는 박스임. 홈 화면처럼 화면을 꽉 채우게 함. */
 .linebox {
   width: 100vw;
   min-height: 100vh;
@@ -49,22 +41,20 @@ select {
   overflow: hidden;
   border: none;
   border-radius: 0;
-  background: rgba(7, 16, 31, 0.95);
+  background: rgba(16, 19, 26, 0.95);
   box-shadow: none;
 }
 
-/* 상단 헤더 영역임. 로고, 메뉴, 프로필 아이콘이 들어감. */
 header {
   width: 100%;
   height: 90px;
   padding: 0 42px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-  background: rgba(5, 12, 26, 0.94);
+  border-bottom: 1px solid rgba(221, 210, 188, 0.13);
+  background: rgba(15, 18, 25, 0.96);
 }
 
-/* GameLog 로고 텍스트 스타일임. */
 .logo {
   width: 210px;
   font-size: 26px;
@@ -72,19 +62,16 @@ header {
   letter-spacing: 0;
 }
 
-/* 로고에서 Log 부분만 보라색으로 강조함. */
 .logo span {
   color: var(--purple);
 }
 
-/* nav는 메뉴 목록과 오른쪽 아이콘을 가로로 배치함. */
 nav {
   flex: 1;
   display: flex;
   align-items: center;
 }
 
-/* 상단 메뉴들을 가운데 정렬하고 간격을 줌. */
 nav ul {
   display: flex;
   flex: 1;
@@ -94,7 +81,6 @@ nav ul {
   transform: translateX(-100px);
 }
 
-/* 상단 메뉴 링크의 기본 스타일임. */
 nav a {
   position: relative;
   color: #e2e8f0;
@@ -102,13 +88,11 @@ nav a {
   transition: color 0.2s ease;
 }
 
-/* 메뉴에 마우스를 올리거나 현재 페이지 메뉴일 때 보라색으로 표시함. */
 nav a:hover,
 nav a.active {
   color: var(--purple);
 }
 
-/* 현재 페이지 메뉴 아래에 보라색 밑줄을 만듦. */
 nav a.active::after {
   content: "";
   position: absolute;
@@ -121,14 +105,12 @@ nav a.active::after {
   transform: translateX(-50%);
 }
 
-/* 오른쪽 아이콘들을 가로로 배치함. */
 .nav-icons {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-/* 프로필 이미지 두 장을 겹쳐 놓기 위한 부모 박스임. */
 .profile-icon {
   position: relative;
   width: 34px;
@@ -136,7 +118,6 @@ nav a.active::after {
   cursor: pointer;
 }
 
-/* 기본 프로필 이미지와 hover 프로필 이미지의 공통 스타일임. */
 .profile {
   position: absolute;
   inset: 0;
@@ -150,99 +131,66 @@ nav a.active::after {
     transform 0.25s ease;
 }
 
-/* hover용 프로필 이미지는 처음에는 보이지 않게 함. */
 .profile-hover {
   opacity: 0;
 }
 
-/* 프로필에 마우스를 올리면 기본 이미지를 숨김. */
 .profile-icon:hover .profile-default {
   opacity: 0;
   transform: scale(0.92);
 }
 
-/* 프로필에 마우스를 올리면 hover 이미지를 보여줌. */
 .profile-icon:hover .profile-hover {
   opacity: 1;
   transform: scale(1.06);
 }
 
-/* main 전체에 어두운 그라데이션 배경을 줌. */
 main {
-  background: linear-gradient(
-    180deg,
-    rgba(15, 23, 42, 0.3),
-    rgba(7, 16, 31, 0.9)
-  );
+  background: #10131a;
 }
 
-/* 장르 페이지 상단 hero 영역임. 제목과 이미지를 양쪽에 배치함. */
 .genre-hero {
   position: relative;
-  min-height: 230px;
-  padding: 64px 90px;
+  min-height: 250px;
+  padding: 56px 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 78% 42%,
-      rgba(139, 92, 246, 0.22),
-      transparent 26%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(9, 18, 40, 0.98) 0%,
-      rgba(20, 35, 78, 0.9) 58%,
-      rgba(14, 25, 61, 0.95) 100%
-    );
+  background: #151923;
 }
 
-/* hero 위에 살짝 덮는 효과를 주는 가상 요소임. */
 .genre-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at 72% 36%,
-      rgba(139, 92, 246, 0.24),
-      transparent 20%
-    ),
-    linear-gradient(180deg, transparent 65%, rgba(7, 16, 31, 0.82));
+  display: none;
 }
 
-/* hero 안의 글자와 이미지를 배경 효과 위로 올림. */
 .hero-copy,
 .hero-art {
   position: relative;
   z-index: 1;
 }
 
-/* hero 제목 크기와 줄 간격임. */
 .hero-copy h1 {
-  font-size: 42px;
+  max-width: 650px;
+  font-size: 40px;
   line-height: 1.2;
   margin-bottom: 18px;
   letter-spacing: 0;
 }
 
-/* hero 설명 문구 스타일임. */
 .hero-copy p {
-  color: #dbe4f0;
+  max-width: 620px;
+  color: #ded5c5;
   font-size: 18px;
 }
 
-/* hero 오른쪽 이미지 크기와 그림자 효과임. */
 .hero-art img {
   width: 400px;
   height: 400px;
   object-fit: contain;
-  filter: drop-shadow(0 18px 28px rgba(91, 53, 201, 0.48));
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34));
 }
 
-/* 왼쪽 장르 사이드바와 오른쪽 게임 목록을 2단 grid로 배치함. */
 .genre-layout {
   display: grid;
   grid-template-columns: 230px minmax(0, 1fr);
@@ -250,26 +198,19 @@ main {
   padding: 18px 42px 42px;
 }
 
-/* 장르 필터 버튼들이 들어가는 왼쪽 사이드바임. */
 .genre-sidebar {
   align-self: start;
   padding: 22px 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(
-    180deg,
-    rgba(25, 35, 58, 0.96),
-    rgba(20, 30, 50, 0.92)
-  );
+  background: #1c222b;
 }
 
-/* 사이드바 제목 스타일임. */
 .genre-sidebar h2 {
   margin: 0 0 14px 2px;
   font-size: 18px;
 }
 
-/* 장르 필터 버튼의 기본 모양임. */
 .genre-filter {
   width: 100%;
   min-height: 46px;
@@ -290,31 +231,26 @@ main {
     transform 0.2s ease;
 }
 
-/* 필터 버튼 왼쪽 아이콘 영역의 폭을 맞춤. */
 .genre-filter span {
   width: 18px;
   color: #e2e8f0;
   text-align: center;
 }
 
-/* 장르 필터에 마우스를 올렸을 때 배경을 살짝 보여줌. */
 .genre-filter:hover {
-  background: rgba(139, 92, 246, 0.16);
+  background: rgba(240, 179, 90, 0.16);
 }
 
-/* 현재 선택된 장르 버튼임. */
 .genre-filter.active {
-  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  background: #d97745;
   color: white;
-  box-shadow: 0 12px 28px rgba(91, 53, 201, 0.28);
+  box-shadow: 0 12px 28px rgba(47, 124, 118, 0.28);
 }
 
-/* 오른쪽 게임 목록 영역임. */
 .games-area {
   min-width: 0;
 }
 
-/* 게임 목록 상단의 제목과 정렬 select를 양쪽에 배치함. */
 .games-top {
   min-height: 58px;
   display: flex;
@@ -322,12 +258,10 @@ main {
   justify-content: space-between;
 }
 
-/* 게임 목록 제목 크기임. */
 .games-top h2 {
   font-size: 26px;
 }
 
-/* 제목 옆 총 게임 개수 텍스트임. */
 .games-top h2 span {
   margin-left: 8px;
   color: var(--muted);
@@ -335,12 +269,10 @@ main {
   font-weight: 600;
 }
 
-/* 정렬 select와 화살표 가상 요소를 묶는 박스임. */
 .sort-box {
   position: relative;
 }
 
-/* 정렬 select 박스 디자인임. */
 .sort-box select {
   appearance: none;
   min-width: 138px;
@@ -348,13 +280,12 @@ main {
   padding: 0 40px 0 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #111b2e;
+  background: #121720;
   color: #e5e7eb;
   cursor: pointer;
   outline: 0;
 }
 
-/* select 오른쪽에 직접 만든 아래 화살표임. */
 .sort-box::after {
   content: "⌄";
   position: absolute;
@@ -365,20 +296,14 @@ main {
   transform: translateY(-56%);
 }
 
-/* 사용자가 직접 게임을 추가하는 form 영역임. */
 .add-game-form {
   margin: 18px 0 24px;
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(
-    180deg,
-    rgba(24, 36, 58, 0.94),
-    rgba(18, 29, 49, 0.92)
-  );
+  background: #1c222b;
 }
 
-/* form 제목과 설명을 가로로 배치함. */
 .form-title {
   display: flex;
   align-items: flex-end;
@@ -387,25 +312,21 @@ main {
   margin-bottom: 16px;
 }
 
-/* form 제목 텍스트임. */
 .form-title h3 {
   font-size: 20px;
 }
 
-/* form 설명 텍스트임. */
 .form-title p {
   color: var(--muted);
   font-size: 13px;
 }
 
-/* 입력칸들을 4열 grid로 배치함. */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
-/* 각 입력 label을 위아래 방향으로 배치함. */
 .form-grid label {
   display: flex;
   flex-direction: column;
@@ -415,7 +336,6 @@ main {
   font-weight: 700;
 }
 
-/* form 안의 input과 select 공통 스타일임. */
 .form-grid input,
 .form-grid select {
   width: 100%;
@@ -423,31 +343,28 @@ main {
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #111b2e;
+  background: #121720;
   color: white;
   outline: none;
 }
 
-/* input placeholder 색상임. */
 .form-grid input::placeholder {
   color: #6b7890;
 }
 
-/* 파일 선택 input도 다른 입력칸과 같은 톤으로 보이게 함. */
 .form-grid input[type="file"] {
   padding: 6px;
-  color: #aeb8ca;
+  color: #c8c0b1;
   cursor: pointer;
 }
 
-/* 파일 선택 버튼의 기본 회색 스타일을 페이지 색상에 맞춤. */
 .form-grid input[type="file"]::file-selector-button {
   height: 28px;
   margin-right: 10px;
   padding: 0 12px;
   border: 0;
   border-radius: 6px;
-  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  background: #2f7c76;
   color: white;
   font-weight: 800;
   cursor: pointer;
@@ -458,21 +375,19 @@ main {
 
 .form-grid input[type="file"]:hover::file-selector-button {
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(91, 53, 201, 0.24);
+  box-shadow: 0 8px 18px rgba(217, 119, 69, 0.24);
 }
 
-/* 이미지 경로 input은 더 길어서 2칸을 차지하게 함. */
 .image-input {
   grid-column: span 2;
 }
 
-/* 게임 추가 버튼 스타일임. */
 .add-game-form button {
   margin-top: 16px;
   padding: 11px 18px;
   border: 0;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  background: #d97745;
   color: white;
   font-weight: 800;
   cursor: pointer;
@@ -481,13 +396,11 @@ main {
     box-shadow 0.2s ease;
 }
 
-/* 게임 추가 버튼 hover 효과임. */
 .add-game-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(91, 53, 201, 0.28);
+  box-shadow: 0 12px 28px rgba(217, 119, 69, 0.28);
 }
 
-/* 게임 카드 목록을 3열 grid로 배치함. */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -496,14 +409,13 @@ main {
   min-height: 580px;
 }
 
-/* 게임 카드 한 장의 기본 스타일임. */
 .game-card {
   position: relative;
   align-self: start;
   overflow: hidden;
-  border: 1px solid rgba(139, 92, 246, 0.28);
+  border: 1px solid rgba(240, 179, 90, 0.28);
   border-radius: 8px;
-  background: linear-gradient(180deg, #18243a, #121d31);
+  background: #1c222b;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   transition:
     transform 0.22s ease,
@@ -511,34 +423,29 @@ main {
     box-shadow 0.22s ease;
 }
 
-/* 게임 카드 hover 효과임. */
 .game-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(139, 92, 246, 0.88);
+  border-color: rgba(240, 179, 90, 0.88);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28);
 }
 
-/* 삭제 버튼이 보이는 카드에 붉은 테두리를 줌. */
 .game-card.show-delete {
   border-color: rgba(248, 113, 113, 0.75);
 }
 
-/* 게임 카드 이미지 영역임. contain으로 이미지가 잘리지 않게 함. */
 .game-thumb {
   width: 100%;
   height: 220px;
   display: block;
   object-fit: contain;
   padding: 20px;
-  background: #0b1220;
+  background: #121720;
 }
 
-/* 게임 카드 안의 텍스트 정보 영역임. */
 .game-info {
   padding: 15px 16px 14px;
 }
 
-/* 게임 제목 스타일임. */
 .game-info h3 {
   min-height: 38px;
   margin-bottom: 9px;
@@ -546,27 +453,24 @@ main {
   line-height: 1.35;
 }
 
-/* 장르 배지 묶음임. */
 .genre-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-/* 장르 배지 스타일임. */
 .genre-badge {
   display: inline-flex;
   align-items: center;
   min-height: 24px;
   padding: 0 9px;
   border-radius: 6px;
-  background: #6d42d9;
+  background: #2f7c76;
   color: white;
   font-size: 12px;
   font-weight: 700;
 }
 
-/* 카드 아래쪽 평점과 출시연도를 양쪽에 배치함. */
 .card-bottom {
   margin-top: 14px;
   display: flex;
@@ -576,48 +480,66 @@ main {
   font-size: 13px;
 }
 
-/* 평점 텍스트 색상임. */
 .rating {
   color: #e5e7eb;
 }
 
-/* 평점 앞에 별 아이콘을 붙임. */
 .rating::before {
   content: "★";
   margin-right: 4px;
   color: var(--yellow);
 }
 
-/* 사용자가 추가한 게임에만 나타나는 삭제 버튼임. */
+.card-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.detail-game-btn,
 .delete-game-btn {
   width: 100%;
   height: 38px;
-  margin-top: 14px;
   border: 1px solid rgba(248, 113, 113, 0.35);
   border-radius: 8px;
-  background: rgba(127, 29, 29, 0.38);
-  color: #fecaca;
   font-weight: 800;
   cursor: pointer;
-  display: none;
   transition:
     background 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* 카드를 클릭해 show-delete가 붙었을 때 삭제 버튼을 보여줌. */
+.detail-game-btn {
+  border-color: rgba(240, 179, 90, 0.42);
+  background: rgba(47, 124, 118, 0.28);
+  color: #d8fff8;
+}
+
+.delete-game-btn {
+  background: rgba(127, 29, 29, 0.38);
+  color: #fecaca;
+  display: none;
+}
+
 .game-card.show-delete .delete-game-btn {
   display: block;
 }
 
-/* 삭제 버튼 hover 효과임. */
+.detail-game-btn:hover {
+  border-color: rgba(240, 179, 90, 0.9);
+  background: rgba(47, 124, 118, 0.52);
+  transform: translateY(-1px);
+}
+
 .delete-game-btn:hover {
   border-color: rgba(248, 113, 113, 0.85);
   background: rgba(153, 27, 27, 0.72);
 }
 
-/* 삭제 확인 모달의 어두운 배경임. */
-.delete-modal {
+.delete-modal,
+.detail-modal {
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -628,41 +550,117 @@ main {
   background: rgba(5, 12, 26, 0.72);
 }
 
-/* 모달에 open 클래스가 붙으면 화면에 표시함. */
-.delete-modal.open {
+.delete-modal.open,
+.detail-modal.open {
   display: flex;
 }
 
-/* 삭제 확인 모달의 실제 박스임. */
 .delete-modal-box {
   width: min(420px, 100%);
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #111b2e;
+  background: #121720;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
   text-align: center;
 }
 
-/* 삭제 모달 제목임. */
 .delete-modal-box h2 {
   margin-bottom: 12px;
   font-size: 24px;
 }
 
-/* 삭제 모달 안내 문구임. */
 .delete-modal-box p {
   color: #cbd5e1;
   line-height: 1.5;
 }
 
-/* 삭제할 게임 이름을 강조함. */
+.detail-modal-box {
+  position: relative;
+  width: min(720px, 100%);
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #121720;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+}
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.72);
+  color: white;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  object-fit: contain;
+  padding: 22px;
+  background: #121720;
+}
+
+.detail-content {
+  padding: 30px 28px;
+}
+
+.detail-content h2 {
+  padding-right: 36px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.detail-genres {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-list {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.detail-list div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.detail-list dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.detail-list dd {
+  margin-top: 6px;
+  color: white;
+  font-size: 18px;
+  font-weight: 800;
+}
+
 #deleteGameName {
   color: white;
   font-weight: 800;
 }
 
-/* 삭제 모달의 네/아니오 버튼 묶음임. */
 .delete-modal-actions {
   display: flex;
   justify-content: center;
@@ -670,7 +668,6 @@ main {
   margin-top: 24px;
 }
 
-/* 삭제 모달 버튼 공통 스타일임. */
 .delete-modal-actions button {
   min-width: 84px;
   padding: 10px 18px;
@@ -682,27 +679,22 @@ main {
   transition: background 0.2s ease;
 }
 
-/* 삭제 확인 버튼임. */
 .delete-yes {
   background: #991b1b;
 }
 
-/* 삭제 확인 버튼 hover 효과임. */
 .delete-yes:hover {
   background: #7f1d1d;
 }
 
-/* 삭제 취소 버튼임. */
 .delete-no {
   background: #475569;
 }
 
-/* 삭제 취소 버튼 hover 효과임. */
 .delete-no:hover {
   background: #334155;
 }
 
-/* 페이지네이션 버튼들을 가운데 정렬함. */
 .pagination {
   min-height: 88px;
   display: flex;
@@ -711,7 +703,6 @@ main {
   gap: 12px;
 }
 
-/* 페이지 번호 버튼과 말줄임 표시의 공통 박스임. */
 .page-btn,
 .page-dots {
   width: 44px;
@@ -725,7 +716,6 @@ main {
   color: #dbe4f0;
 }
 
-/* 실제 클릭 가능한 페이지 버튼임. */
 .page-btn {
   cursor: pointer;
   transition:
@@ -733,21 +723,18 @@ main {
     border-color 0.2s ease;
 }
 
-/* 페이지 버튼 hover와 현재 페이지 active 상태임. */
 .page-btn:hover,
 .page-btn.active {
-  border-color: rgba(139, 92, 246, 0.8);
-  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  border-color: rgba(240, 179, 90, 0.8);
+  background: #2f7c76;
   color: white;
 }
 
-/* 이전/다음 버튼이 비활성화되었을 때임. */
 .page-btn:disabled {
   opacity: 0.45;
   cursor: default;
 }
 
-/* 페이지 하단 footer 전체 영역임. */
 footer {
   position: relative;
   padding: 28px 42px 44px;
@@ -755,10 +742,9 @@ footer {
   grid-template-columns: 270px 1fr 250px;
   gap: 36px;
   border-top: 1px solid var(--line);
-  background: linear-gradient(180deg, #111b2d, #0d1729);
+  background: #121720;
 }
 
-/* footer 안의 로고 스타일임. */
 .footer-brand .logo {
   display: block;
   width: auto;
@@ -766,7 +752,6 @@ footer {
   font-size: 24px;
 }
 
-/* footer 설명, 저작권, 링크의 공통 텍스트 스타일임. */
 .footer-brand p,
 .copyright,
 .footer-links a {
@@ -775,48 +760,58 @@ footer {
   line-height: 1.8;
 }
 
-/* footer SNS 아이콘 자리임. */
 .socials {
   margin-top: 20px;
   display: flex;
   gap: 18px;
-  color: #aeb8ca;
+  color: #c8c0b1;
 }
 
-/* footer 링크 그룹을 3열로 배치함. */
 .footer-links {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 40px;
 }
 
-/* footer 링크 그룹 제목임. */
 .footer-links h3 {
   margin-bottom: 13px;
   font-size: 15px;
 }
 
-/* footer 링크는 한 줄씩 보이게 함. */
 .footer-links a {
   display: block;
 }
 
-/* footer 링크 hover 효과임. */
 .footer-links a:hover {
   color: white;
 }
 
-/* copyright 문구 위치임. */
 .copyright {
   align-self: center;
   text-align: right;
 }
 
-/* 화면에는 안 보이지만 스크린리더에는 필요한 텍스트를 숨기는 클래스임. */
 .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+@media (max-width: 760px) {
+  .detail-modal-box {
+    max-height: calc(100vh - 40px);
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .detail-image {
+    min-height: 220px;
+    height: 240px;
+  }
+
+  .detail-list {
+    grid-template-columns: 1fr;
+  }
 }
