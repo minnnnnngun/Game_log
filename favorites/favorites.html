@@ -13,10 +13,10 @@
 
         <nav aria-label="주요 메뉴">
             <ul>
-                <li><a href="../Index/Index.html">홈</a></li>
-                <li><a href="../genre/genre.html">장르</a></li>
-                <li><a href="../search/search.html">검색</a></li>
-                <li><a href="../favorites/favorites.html" class="active">즐겨찾기</a></li>
+                <li><a href="../Index/Index.html"><span>⌂</span>홈</a></li>
+                <li><a href="../genre/genre.html"><span>🎮</span>장르</a></li>
+                <li><a href="../search/search.html"><span>⌕</span>검색</a></li>
+                <li><a href="../favorites/favorites.html" class="active"><span>♡</span>즐겨찾기</a></li>
             </ul>
 
             <div class="nav-icons">
@@ -29,27 +29,70 @@
     </header>
 
     <main>
-        <section class="favorites-panel">
-            <div>
-                <p class="eyebrow">Saved Games</p>
-                <h1>나중에 다시 볼 게임</h1>
-                <p class="panel-note">홈에서 저장한 게임이 여기에 쌓입니다.</p>
+        <section class="favorites-heading">
+            <div class="title-row">
+                <span class="heart-mark">♡</span>
+                <div>
+                    <h1>즐겨찾기</h1>
+                    <p>내가 좋아하는 게임을 한눈에 확인하세요!</p>
+                </div>
             </div>
 
-            <button type="button" id="clearFavorites">비우기</button>
+            <label class="sort-box">
+                <span>정렬 :</span>
+                <select id="favoriteSort">
+                    <option value="recent">최근 추가순</option>
+                    <option value="rating">평점순</option>
+                    <option value="title">이름순</option>
+                </select>
+            </label>
         </section>
 
         <section class="favorite-list" id="favoriteList" aria-label="즐겨찾기 게임 목록"></section>
-        <p class="empty-message" id="emptyMessage">아직 저장한 게임이 없습니다.</p>
+
+        <section class="empty-box" id="emptyBox" aria-live="polite">
+            <div class="empty-illustration" aria-hidden="true">▱</div>
+            <div>
+                <h2 id="emptyTitle">즐겨찾기한 게임이 없습니다.</h2>
+                <p id="emptyText">마음에 드는 게임을 ♡ 클릭하여 저장해 보세요!</p>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="footer-brand">
             <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
-            <p>해본 게임과<br>해보고 싶은 게임을 남기는 곳</p>
+            <p>게임을 기록하고,<br>재미를 발견하는 공간</p>
+            <div class="socials" aria-label="SNS">
+                <span>▻</span>
+                <span>◎</span>
+                <span>♬</span>
+            </div>
         </div>
 
-        <p class="copyright">© 2024 GameLog. All rights reserved.</p>
+        <div class="footer-links">
+            <div>
+                <h3>서비스</h3>
+                <a href="../Index/Index.html">홈</a>
+                <a href="../genre/genre.html">장르</a>
+                <a href="../search/search.html">검색</a>
+                <a href="../favorites/favorites.html">즐겨찾기</a>
+            </div>
+            <div>
+                <h3>고객센터</h3>
+                <a href="#">공지사항</a>
+                <a href="#">자주 묻는 질문</a>
+                <a href="#">문의하기</a>
+            </div>
+            <div>
+                <h3>회사 정보</h3>
+                <a href="#">회사 소개</a>
+                <a href="#">이용 약관</a>
+                <a href="#">개인정보 처리방침</a>
+            </div>
+        </div>
+
+        <p class="copyright">© 2024 GameLog.<br>All rights reserved.</p>
     </footer>
 </div>
 
