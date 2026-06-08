@@ -13,10 +13,10 @@
 
         <nav aria-label="주요 메뉴">
             <ul>
-                <li><a href="../Index/Index.html"><span>⌂</span>홈</a></li>
-                <li><a href="../genre/genre.html"><span>🎮</span>장르</a></li>
-                <li><a href="../search/search.html"><span>⌕</span>검색</a></li>
-                <li><a href="../favorites/favorites.html" class="active"><span>♡</span>즐겨찾기</a></li>
+                <li><a href="../Index/Index.html">홈</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html" class="active">즐겨찾기</a></li>
             </ul>
 
             <div class="nav-icons">
@@ -29,32 +29,38 @@
     </header>
 
     <main>
-        <section class="favorites-heading">
-            <div class="title-row">
-                <span class="heart-mark">♡</span>
-                <div>
-                    <h1>즐겨찾기</h1>
-                    <p>내가 좋아하는 게임을 한눈에 확인하세요!</p>
-                </div>
+        <section class="favorites-panel">
+            <div>
+                <p class="eyebrow">Saved Games</p>
+                <h1>즐겨찾기</h1>
+                <p class="panel-note">저장해 둔 게임을 모아보고, 다시 고르거나 정리할 수 있어요.</p>
             </div>
 
-            <label class="sort-box">
-                <span>정렬 :</span>
-                <select id="favoriteSort">
-                    <option value="recent">최근 추가순</option>
-                    <option value="rating">평점순</option>
-                    <option value="title">이름순</option>
-                </select>
-            </label>
+            <div class="panel-actions">
+                <span class="favorite-count" id="favoriteCount">0개 저장됨</span>
+
+                <label class="sort-box">
+                    <span class="sr-only">즐겨찾기 정렬</span>
+                    <select id="favoriteSort">
+                        <option value="recent">최근 추가순</option>
+                        <option value="rating">평점순</option>
+                        <option value="title">이름순</option>
+                    </select>
+                </label>
+
+                <button type="button" id="clearFavorites">전체 삭제</button>
+            </div>
         </section>
 
         <section class="favorite-list" id="favoriteList" aria-label="즐겨찾기 게임 목록"></section>
 
-        <section class="empty-box" id="emptyBox" aria-live="polite">
-            <div class="empty-illustration" aria-hidden="true">▱</div>
-            <div>
-                <h2 id="emptyTitle">즐겨찾기한 게임이 없습니다.</h2>
-                <p id="emptyText">마음에 드는 게임을 ♡ 클릭하여 저장해 보세요!</p>
+        <section class="empty-state" id="emptyState">
+            <img src="../image/search.png" alt="" aria-hidden="true">
+            <h2>저장한 게임이 없습니다.</h2>
+            <p>홈에서 마음에 드는 게임을 저장하면 이곳에 쌓입니다.</p>
+            <div class="empty-actions">
+                <a href="../Index/Index.html">홈에서 저장하기</a>
+                <a href="../genre/genre.html">장르 둘러보기</a>
             </div>
         </section>
     </main>
@@ -62,11 +68,11 @@
     <footer>
         <div class="footer-brand">
             <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
-            <p>게임을 기록하고,<br>재미를 발견하는 공간</p>
+            <p>해본 게임과<br>해보고 싶은 게임을 남기는 곳</p>
             <div class="socials" aria-label="SNS">
-                <span>▻</span>
-                <span>◎</span>
-                <span>♬</span>
+                <span>●</span>
+                <span>▶</span>
+                <span>◆</span>
             </div>
         </div>
 
@@ -92,8 +98,20 @@
             </div>
         </div>
 
-        <p class="copyright">© 2024 GameLog.<br>All rights reserved.</p>
+        <p class="copyright">© 2024 GameLog. All rights reserved.</p>
     </footer>
+</div>
+
+<div class="remove-modal" id="removeModal" aria-hidden="true">
+    <div class="remove-modal-box" role="dialog" aria-modal="true" aria-labelledby="removeModalTitle">
+        <h2 id="removeModalTitle">즐겨찾기 삭제</h2>
+        <p><span id="removeGameName"></span>을 즐겨찾기에서 삭제할까요?</p>
+
+        <div class="remove-modal-actions">
+            <button type="button" class="modal-yes" id="removeConfirm">삭제</button>
+            <button type="button" class="modal-no" id="removeCancel">취소</button>
+        </div>
+    </div>
 </div>
 
 <script src="favorites.js"></script>
