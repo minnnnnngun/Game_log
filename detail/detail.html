@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- 게임 정보 상세보기 화면의 뼈대를 만드는 HTML 파일입니다. -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameLog - 게임 정보</title>
+    <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+<div class="linebox">
+    <header>
+        <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="../Index/Index.html">홈</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html">즐겨찾기</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <a href="../login/login.html" class="profile-icon" id="profile" aria-label="로그인 페이지">
+                    <img src="../image/circle-user-solid-full%20(1).svg" alt="프로필" class="profile profile-default">
+                    <img src="../image/circle-user-solid-full%20(2).svg" alt="" class="profile profile-hover">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="detail-hero" id="detailPage">
+            <div class="detail-image-wrap">
+                <img src="../image/search.png" alt="" id="gameImage">
+            </div>
+
+            <div class="detail-content">
+                <a href="../genre/genre.html" class="back-link">목록으로 돌아가기</a>
+                <div class="genre-badges" id="gameGenres"></div>
+                <h1 id="gameTitle">게임 이름</h1>
+                <p id="gameDescription">게임 설명</p>
+
+                <dl class="detail-list">
+                    <div>
+                        <dt>평점</dt>
+                        <dd id="gameRating">0.0</dd>
+                    </div>
+                    <div>
+                        <dt>출시연도</dt>
+                        <dd id="gameYear">2024</dd>
+                    </div>
+                    <div>
+                        <dt>인기점수</dt>
+                        <dd id="gamePopularity">0</dd>
+                    </div>
+                    <div>
+                        <dt>구분</dt>
+                        <dd id="gameType">기본 게임</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <section class="empty-state" id="emptyState">
+            <img src="../image/search.png" alt="" aria-hidden="true">
+            <h1>게임 정보를 찾을 수 없습니다.</h1>
+            <p>선택한 게임 정보가 없거나 주소가 올바르지 않습니다.</p>
+            <a href="../genre/genre.html">게임 목록 보기</a>
+        </section>
+    </main>
+</div>
+
+<script src="detail.js"></script>
+</body>
+</html>

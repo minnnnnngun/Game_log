@@ -1,4 +1,4 @@
-/* 검색 화면의 색, 위치, 카드 모양을 정하는 CSS 파일입니다. */
+/* 즐겨찾기 화면의 색, 위치, 카드 모양을 정하는 CSS 파일입니다. */
 
 /* 모든 태그의 기본 여백을 없애서 화면을 맞추기 쉽게 합니다. */
 * {
@@ -18,6 +18,8 @@
   --purple: #2f7c76;
   --purple-dark: #22645f;
   --yellow: #f0b35a;
+  --orange: #d97745;
+  --danger: #991b1b;
 }
 
 /* 페이지 전체의 배경색과 글자 모양입니다. */
@@ -35,7 +37,6 @@ a {
 }
 
 button,
-input,
 select {
   font: inherit;
 }
@@ -111,25 +112,7 @@ nav a.active::after {
 .nav-icons {
   display: flex;
   align-items: center;
-  gap: 18px;
-}
-
-.search-icon {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 8px;
-  background: rgba(18, 23, 32, 0.72);
-}
-
-.search-icon img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  filter: invert(1);
+  gap: 24px;
 }
 
 .profile-icon {
@@ -168,107 +151,69 @@ nav a.active::after {
 }
 
 main {
-  padding: 34px 42px 46px;
+  min-height: calc(100vh - 90px);
+  padding: 42px;
   background: #10131a;
 }
 
-/* 검색어를 입력하는 큰 영역입니다. */
-.search-panel {
+/* 즐겨찾기 제목, 저장 개수, 정렬 버튼이 있는 큰 영역입니다. */
+.favorites-panel {
   max-width: 1120px;
+  min-height: 190px;
   margin: 0 auto;
-  padding: 26px 0 18px;
+  padding: 34px 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #151923;
 }
 
-.search-panel h1 {
-  margin-bottom: 10px;
-  font-size: 30px;
-  line-height: 1.25;
+.eyebrow {
+  margin-bottom: 12px;
+  color: var(--yellow);
+  font-size: 13px;
+  font-weight: 800;
 }
 
-.search-panel p {
-  color: var(--muted);
-  font-size: 15px;
+h1 {
+  font-size: 40px;
+  line-height: 1.18;
 }
 
-.search-form {
-  width: min(620px, 100%);
-  margin: 28px auto 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 110px;
+.panel-note {
+  max-width: 520px;
+  margin-top: 14px;
+  color: #ded5c5;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-.search-form input {
-  width: 100%;
-  height: 48px;
-  padding: 0 18px;
+.favorite-count {
+  min-height: 42px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #121720;
-  color: white;
-  outline: 0;
-}
-
-.search-form input:focus {
-  border-color: rgba(240, 179, 90, 0.78);
-  box-shadow: 0 0 0 3px rgba(240, 179, 90, 0.12);
-}
-
-.search-form input::placeholder {
-  color: #8b96a8;
-}
-
-.search-form button {
-  height: 48px;
-  border: 0;
-  border-radius: 8px;
-  background: #d97745;
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-
-.search-form button:hover {
-  background: #c56836;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(217, 119, 69, 0.24);
-}
-
-.result-section {
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-/* 검색 결과 위쪽의 개수와 정렬 선택 영역입니다. */
-.result-top {
-  min-height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.result-top p {
-  color: #dbe4f0;
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.result-top span {
-  color: var(--yellow);
-}
-
-.sort-box {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 800;
+}
+
+.sort-box {
+  position: relative;
 }
 
 .sort-box select {
@@ -287,16 +232,43 @@ main {
   outline: 0;
 }
 
-/* 검색 결과 게임 카드들이 들어가는 격자입니다. */
-.game-grid {
-  min-height: 0;
+#clearFavorites {
+  min-width: 96px;
+  height: 42px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--orange);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#clearFavorites:hover {
+  background: #c56836;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(217, 119, 69, 0.24);
+}
+
+#clearFavorites.hidden {
+  display: none;
+}
+
+/* 즐겨찾기 게임 카드들이 들어가는 격자입니다. */
+.favorite-list {
+  max-width: 1120px;
+  min-height: 320px;
+  margin: 26px auto 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
 }
 
-/* 게임 카드 하나의 모양입니다. */
-.game-card {
+/* 즐겨찾기 카드 하나의 모양입니다. */
+.favorite-card {
   overflow: hidden;
   border: 1px solid rgba(240, 179, 90, 0.28);
   border-radius: 8px;
@@ -309,121 +281,189 @@ main {
     box-shadow 0.22s ease;
 }
 
-.game-card:hover {
+.favorite-card:hover {
   transform: translateY(-4px);
   border-color: rgba(240, 179, 90, 0.85);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28);
 }
 
-.game-thumb {
-  width: 100%;
-  height: 145px;
-  display: block;
-  object-fit: contain;
-  padding: 16px;
+.favorite-thumb-wrap {
+  position: relative;
+  height: 155px;
   background: #121720;
 }
 
-.game-info {
-  padding: 13px 14px 14px;
+.favorite-thumb {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  padding: 16px;
 }
 
-.game-info h2 {
+.heart-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(240, 179, 90, 0.35);
+  border-radius: 8px;
+  background: rgba(18, 23, 32, 0.82);
+  color: #fecdd3;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.heart-btn:hover {
+  background: rgba(127, 29, 29, 0.56);
+  transform: scale(1.05);
+}
+
+.favorite-info {
+  padding: 15px 16px 14px;
+}
+
+.favorite-info h2 {
   min-height: 42px;
-  margin-bottom: 9px;
-  font-size: 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
   line-height: 1.35;
 }
 
-.genre-badges {
-  min-height: 24px;
+.card-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 7px;
 }
 
-.genre-badge {
+.badge {
   display: inline-flex;
   align-items: center;
-  min-height: 23px;
-  padding: 0 8px;
+  min-height: 24px;
+  padding: 0 9px;
   border-radius: 6px;
   background: var(--purple);
   color: white;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.year {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 9px;
+  border-radius: 6px;
+  background: rgba(240, 179, 90, 0.15);
+  color: #f8d69f;
+  font-size: 12px;
   font-weight: 800;
 }
 
 .card-bottom {
-  margin-top: 13px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--muted);
-  font-size: 12px;
 }
 
 .rating {
   color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .rating::before {
   content: "★";
-  margin-right: 4px;
+  margin-right: 5px;
   color: var(--yellow);
 }
 
-/* 검색 결과가 없을 때 보여주는 문장입니다. */
-.empty-message {
-  display: none;
-  margin: 90px 0 120px;
-  color: var(--muted);
-  text-align: center;
-}
-
-.empty-message.show {
-  display: block;
-}
-
-/* 페이지 번호 버튼 영역입니다. */
-.pagination {
-  min-height: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.page-btn,
-.page-dots {
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
+.delete-btn {
+  min-width: 72px;
+  height: 36px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
   border-radius: 8px;
-  background: #142038;
-  color: #dbe4f0;
-}
-
-.page-btn {
+  background: rgba(127, 29, 29, 0.38);
+  color: #fecaca;
+  font-weight: 800;
   cursor: pointer;
   transition:
     background 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.page-btn:hover,
-.page-btn.active {
-  border-color: rgba(240, 179, 90, 0.8);
+.delete-btn:hover {
+  border-color: rgba(248, 113, 113, 0.85);
+  background: rgba(153, 27, 27, 0.72);
+  transform: translateY(-1px);
+}
+
+/* 저장한 게임이 없을 때 보여주는 안내 영역입니다. */
+.empty-state {
+  max-width: 1120px;
+  margin: 26px auto 0;
+  padding: 40px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px dashed rgba(221, 210, 188, 0.26);
+  border-radius: 8px;
+  background: #151923;
+  text-align: center;
+}
+
+.empty-state.show {
+  display: flex;
+}
+
+.empty-state img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: invert(1);
+  opacity: 0.55;
+}
+
+.empty-state h2 {
+  margin-top: 18px;
+  font-size: 24px;
+}
+
+.empty-state p {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.empty-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.empty-actions a {
+  min-height: 42px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
   background: var(--purple);
   color: white;
+  font-weight: 800;
 }
 
-.page-btn:disabled {
-  opacity: 0.45;
-  cursor: default;
+.empty-actions a + a {
+  background: #242b35;
+  color: #e5e7eb;
 }
 
 /* 페이지 맨 아래 footer 영역입니다. */
@@ -482,6 +522,72 @@ footer {
   text-align: right;
 }
 
+/* 삭제 확인 창의 어두운 배경입니다. */
+.remove-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 12, 26, 0.72);
+}
+
+.remove-modal.open {
+  display: flex;
+}
+
+.remove-modal-box {
+  width: min(420px, 100%);
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #121720;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+  text-align: center;
+}
+
+.remove-modal-box h2 {
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.remove-modal-box p {
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+#removeGameName {
+  color: white;
+  font-weight: 800;
+}
+
+.remove-modal-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.remove-modal-actions button {
+  min-width: 84px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.modal-yes {
+  background: var(--danger);
+}
+
+.modal-no {
+  background: #475569;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -490,14 +596,23 @@ footer {
   clip: rect(0, 0, 0, 0);
 }
 
-/* 태블릿 크기에서 화면이 답답하지 않게 칸 수를 줄입니다. */
+/* 태블릿 크기에서 화면에 맞게 칸 수를 줄입니다. */
 @media (max-width: 980px) {
   nav ul {
     gap: 26px;
     transform: none;
   }
 
-  .game-grid {
+  .favorites-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .panel-actions {
+    justify-content: flex-start;
+  }
+
+  .favorite-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -541,16 +656,11 @@ footer {
     padding: 26px 20px 34px;
   }
 
-  .search-form {
-    grid-template-columns: 1fr;
+  .favorites-panel {
+    padding: 28px 22px;
   }
 
-  .result-top {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .game-grid {
+  .favorite-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -564,7 +674,13 @@ footer {
 }
 
 @media (max-width: 460px) {
-  .game-grid {
+  .favorite-list {
     grid-template-columns: 1fr;
+  }
+
+  .panel-actions,
+  .sort-box select,
+  #clearFavorites {
+    width: 100%;
   }
 }
