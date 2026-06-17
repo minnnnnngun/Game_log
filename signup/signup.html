@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- 회원가입 화면의 뼈대를 만드는 HTML 파일입니다. -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameLog - 회원가입</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+<div class="linebox">
+    <header>
+        <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
+
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="../Index/Index.html">홈</a></li>
+                <li><a href="../genre/genre.html">장르</a></li>
+                <li><a href="../search/search.html">검색</a></li>
+                <li><a href="../favorites/favorites.html">즐겨찾기</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <a href="../login/login.html" class="profile-icon active-profile" id="profile" aria-label="로그인 페이지">
+                    <img src="../image/circle-user-solid-full%20(1).svg" alt="프로필" class="profile profile-default">
+                    <img src="../image/circle-user-solid-full%20(2).svg" alt="" class="profile profile-hover">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="signup-panel" aria-labelledby="signupTitle">
+            <div class="signup-copy">
+                <p class="eyebrow">Join GameLog</p>
+                <h1 id="signupTitle">회원가입</h1>
+                <p>플레이한 게임과 앞으로 해볼 게임을 내 계정에 모아두세요.</p>
+            </div>
+
+            <form class="signup-form" id="signupForm" autocomplete="on">
+                <label>
+                    이름
+                    <input type="text" id="signupName" placeholder="닉네임 또는 이름" required>
+                </label>
+
+                <label>
+                    이메일
+                    <input type="email" id="signupEmail" placeholder="gamelog@example.com" required>
+                </label>
+
+                <label>
+                    비밀번호
+                    <input type="password" id="signupPassword" placeholder="4자 이상 입력" minlength="4" required>
+                </label>
+
+                <label>
+                    비밀번호 확인
+                    <input type="password" id="signupPasswordConfirm" placeholder="비밀번호 다시 입력" minlength="4" required>
+                </label>
+
+                <label class="terms-check">
+                    <input type="checkbox" id="signupTerms" required>
+                    이용 약관에 동의합니다.
+                </label>
+
+                <button type="submit">가입하기</button>
+                <p class="signup-message" id="signupMessage" aria-live="polite"></p>
+
+                <p class="auth-switch">
+                    이미 계정이 있나요?
+                    <a href="../login/login.html">로그인</a>
+                </p>
+            </form>
+        </section>
+    </main>
+</div>
+
+<script src="signup.js"></script>
+</body>
+</html>
