@@ -114,23 +114,6 @@ nav a.active::after {
   gap: 18px;
 }
 
-.search-icon {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 8px;
-  background: rgba(18, 23, 32, 0.72);
-}
-
-.search-icon img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  filter: invert(1);
-}
 
 .profile-icon {
   position: relative;
