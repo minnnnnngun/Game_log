@@ -1,6 +1,10 @@
+// 검색 화면을 움직이게 만드는 자바스크립트 파일입니다.
+// 검색어 입력, 정렬, 페이지 이동을 담당합니다.
+
 // 검색 화면에 보여줄 기본 게임 데이터입니다.
 const games = [
   {
+    id: "valorant",
     title: "발로란트",
     genreNames: ["FPS"],
     rating: 4.8,
@@ -9,6 +13,7 @@ const games = [
     image: "../image/Valorant-Logo-500x281.png",
   },
   {
+    id: "battleground",
     title: "배틀그라운드",
     genreNames: ["FPS"],
     rating: 4.5,
@@ -17,6 +22,7 @@ const games = [
     image: "../image/BAG.jpg",
   },
   {
+    id: "genshin",
     title: "원신",
     genreNames: ["RPG"],
     rating: 4.3,
@@ -25,6 +31,7 @@ const games = [
     image: "../image/genshin.jpg",
   },
   {
+    id: "fc-online",
     title: "EA SPORTS",
     genreNames: ["스포츠"],
     rating: 4.2,
@@ -33,6 +40,7 @@ const games = [
     image: "../image/FC.png",
   },
   {
+    id: "forza-horizon-5",
     title: "포르자 호라이즌 5",
     genreNames: ["레이싱"],
     rating: 4.7,
@@ -41,6 +49,7 @@ const games = [
     image: "../image/FORZA_HORIZON.jpg",
   },
   {
+    id: "hollow-knight",
     title: "할로우 나이트",
     genreNames: ["어드벤처", "액션"],
     rating: 4.4,
@@ -49,6 +58,7 @@ const games = [
     image: "../image/Hollow Knight.jpg",
   },
   {
+    id: "subnautica",
     title: "서브노티카",
     genreNames: ["어드벤처", "시뮬레이션"],
     rating: 4.6,
@@ -57,6 +67,7 @@ const games = [
     image: "../image/SUBNAUTICA.jpg",
   },
   {
+    id: "poppy-playtime",
     title: "Poppy playtime",
     genreNames: ["공포"],
     rating: 4.6,
@@ -65,6 +76,7 @@ const games = [
     image: "../image/poppy.webp",
   },
   {
+    id: "league-of-legends",
     title: "리그 오브 레전드",
     genreNames: ["전략", "액션"],
     rating: 5.0,
@@ -73,6 +85,7 @@ const games = [
     image: "../image/League of lengends (1).png",
   },
   {
+    id: "minecraft",
     title: "마인크래프트",
     genreNames: ["어드벤처"],
     rating: 4.7,
@@ -81,6 +94,7 @@ const games = [
     image: "../image/minecraft.jpg",
   },
   {
+    id: "stardew-valley",
     title: "스타듀 밸리",
     genreNames: ["RPG", "시뮬레이션"],
     rating: 4.8,
@@ -90,6 +104,7 @@ const games = [
 
   },
   {
+    id: "tetris",
     title: "테트리스",
     genreNames: ["퍼즐"],
     rating: 4.5,
@@ -112,6 +127,11 @@ const pagination = document.querySelector("#pagination");
 const perPage = 8;
 let currentPage = 1;
 let keyword = "";
+
+// 게임 id를 상세보기 페이지 주소로 바꿉니다.
+function getDetailPageUrl(gameId) {
+  return `../detail/detail.html?game=${encodeURIComponent(gameId)}`;
+}
 
 // 검색 비교가 쉽도록 대소문자와 공백 차이를 줄입니다.
 function normalizeText(value) {
@@ -169,7 +189,7 @@ function renderGames() {
         .join("");
 
       return `
-        <article class="game-card">
+        <article class="game-card" data-id="${game.id}">
           <img class="game-thumb" src="${game.image}" alt="${game.title} 이미지" onerror="this.onerror=null;this.src='../image/search.png'">
           <div class="game-info">
             <h2>${game.title}</h2>
@@ -186,6 +206,17 @@ function renderGames() {
 
   renderPagination(totalPages, filteredGames.length);
 }
+
+// 검색 결과 카드를 누르면 해당 게임의 상세보기 페이지로 이동합니다.
+gameGrid.addEventListener("click", (event) => {
+  const gameCard = event.target.closest(".game-card");
+
+  if (!gameCard) {
+    return;
+  }
+
+  window.location.href = getDetailPageUrl(gameCard.dataset.id);
+});
 
 // 현재 페이지 위치에 맞춰 이전/다음 버튼과 숫자 버튼을 만듭니다.
 function renderPagination(totalPages, resultTotal) {
