@@ -1,4 +1,3 @@
-// 로그인 화면을 움직이게 만드는 자바스크립트 파일입니다.
 const loginForm = document.querySelector("#loginForm");
 const loginEmail = document.querySelector("#loginEmail");
 const loginPassword = document.querySelector("#loginPassword");
