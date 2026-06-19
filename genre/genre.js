@@ -184,6 +184,8 @@ const addRating = document.querySelector("#addRating");
 const addYear = document.querySelector("#addYear");
 // 이미지 경로 input을 가져옴.
 const addImage = document.querySelector("#addImage");
+// 사용자가 직접 고른 이미지 파일 input을 가져옴.
+const addImageFile = document.querySelector("#addImageFile");
 // 삭제 확인 모달 전체 영역을 가져옴.
 const deleteModal = document.querySelector("#deleteModal");
 // 삭제 확인 모달 안에 게임 이름을 보여줄 요소를 가져옴.
@@ -206,6 +208,9 @@ const genreNames = {
   puzzle: "퍼즐",
   horror: "공포",
 };
+
+// 이미지가 비어 있거나 불러오지 못할 때 대신 보여줄 기본 이미지임.
+const DEFAULT_IMAGE_PATH = "../image/search.png";
 
 // 예전 genre 하나짜리 데이터도 배열처럼 쓰게 맞춰줌.
 function getGameGenres(game) {
@@ -255,6 +260,8 @@ function loadAddedGames() {
     genres: getGameGenres(game),
     // 예전 추가 게임도 장르 이름 배열을 갖게 맞춰줌.
     genreNames: getGameGenreNames(game),
+    // 저장된 이미지 경로도 현재 규칙에 맞게 다시 보정함.
+    image: getImagePath(game.image || ""),
     // 사용자가 추가한 게임이라는 표시를 넣음.
     isCustom: true,
   }));
@@ -268,15 +275,64 @@ function loadAddedGames() {
 // 이미지 경로 input 값을 검사해서 실제 사용할 이미지 경로를 정하는 함수임.
 function getImagePath(imagePath) {
   // 앞뒤 공백을 제거함.
-  const trimmedPath = imagePath.trim();
+  const trimmedPath = imagePath
+    .trim()
+    .replace(/^%22|%22$/gi, "")
+    .replace(/^["']|["']$/g, "")
+    .replace(/%5c/gi, "/")
+    .replaceAll("\\", "/");
 
   // 이미지 경로를 비워두면 기본 이미지를 사용함.
   if (trimmedPath === "") {
-    return "../image/search.png";
+    return DEFAULT_IMAGE_PATH;
   }
 
-  // 직접 입력한 이미지 경로가 있으면 그 경로를 사용함.
-  return trimmedPath;
+  // www로 시작하는 외부 주소는 브라우저가 상대경로로 착각하지 않게 https를 붙임.
+  if (/^www\./i.test(trimmedPath)) {
+    return `https://${trimmedPath}`;
+  }
+
+  // C:/Users/... 같은 윈도우 절대경로는 브라우저가 읽을 수 있는 file URL로 바꿈.
+  if (/^[a-z]:\//i.test(trimmedPath)) {
+    return encodeURI(`file:///${trimmedPath}`);
+  }
+
+  // 프로젝트 루트 기준 image/...로 넣은 경로는 genre.html 기준 상대경로로 바꿈.
+  if (/^\.?\/?image\//i.test(trimmedPath)) {
+    return encodeURI(`../${trimmedPath.replace(/^\.?\//, "")}`);
+  }
+
+  // 직접 입력한 이미지 경로나 URL이 있으면 브라우저가 읽기 좋게 공백 등을 인코딩함.
+  return encodeURI(trimmedPath);
+}
+
+// 파일 선택으로 고른 이미지를 브라우저가 바로 표시할 수 있는 data URL로 읽음.
+function readImageFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => resolve(reader.result));
+    reader.addEventListener("error", reject);
+    reader.readAsDataURL(file);
+  });
+}
+
+// 직접 선택한 파일이 있으면 그 파일을 우선 쓰고, 없으면 입력한 경로/URL을 사용함.
+async function getSelectedImagePath() {
+  if (addImageFile.files.length > 0) {
+    return readImageFile(addImageFile.files[0]);
+  }
+
+  return getImagePath(addImage.value);
+}
+
+// HTML 속성 안에 들어갈 값을 안전하게 바꿔주는 함수임.
+function escapeAttribute(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
 }
 
 // 사용자가 추가한 게임에 붙일 고유 id를 만드는 함수임.
@@ -403,13 +459,14 @@ function renderGames() {
   // pageGames 배열을 HTML 문자열로 바꿔 gameGrid 안에 넣음.
   gameGrid.innerHTML = pageGames
     .map((game) => {
+      const imagePath = escapeAttribute(game.image || DEFAULT_IMAGE_PATH);
       const genreBadges = getGameGenreNames(game)
         .map((genreName) => `<span class="genre-badge">${genreName}</span>`)
         .join("");
 
       return `
         <article class="game-card" data-id="${game.id}">
-            <img class="game-thumb" src="${game.image}" alt="${game.title} 이미지">
+            <img class="game-thumb" src="${imagePath}" alt="${game.title} 이미지" onerror="this.onerror=null;this.src='${DEFAULT_IMAGE_PATH}'">
             <div class="game-info">
                 <h3>${game.title}</h3>
                 <div class="genre-badges">${genreBadges}</div>
@@ -478,7 +535,7 @@ sortSelect.addEventListener("change", () => {
 });
 
 // 게임 추가 form을 제출했을 때 실행됨.
-addGameForm.addEventListener("submit", (event) => {
+addGameForm.addEventListener("submit", async (event) => {
   // form 제출 시 페이지가 새로고침되는 기본 동작을 막음.
   event.preventDefault();
 
@@ -507,7 +564,7 @@ addGameForm.addEventListener("submit", (event) => {
     // 사용자가 추가한 게임은 기본 인기 점수를 60으로 둠.
     popularity: 60,
     // 이미지 경로를 검사해서 비어 있으면 기본 이미지를 넣음.
-    image: getImagePath(addImage.value),
+    image: await getSelectedImagePath(),
     // 이 게임은 사용자가 추가한 게임이라는 표시임.
     isCustom: true,
   };
