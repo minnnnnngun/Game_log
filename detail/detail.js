@@ -177,6 +177,13 @@ const gameYear = document.querySelector("#gameYear");
 const gamePopularity = document.querySelector("#gamePopularity");
 const gameType = document.querySelector("#gameType");
 const favoriteAddBtn = document.querySelector("#favoriteAddBtn");
+const reviewSection = document.querySelector("#reviewSection");
+const reviewForm = document.querySelector("#reviewForm");
+const reviewRating = document.querySelector("#reviewRating");
+const reviewText = document.querySelector("#reviewText");
+const reviewList = document.querySelector("#reviewList");
+const reviewCount = document.querySelector("#reviewCount");
+const reviewEmpty = document.querySelector("#reviewEmpty");
 const DEFAULT_IMAGE_PATH = "../image/search.png";
 let currentGame = null;
 
@@ -203,6 +210,36 @@ function getSavedGames() {
 
 function setSavedGames(games) {
   localStorage.setItem("favoriteGames", JSON.stringify(games));
+}
+
+function getLoginUser() {
+  return JSON.parse(localStorage.getItem("loginUser")) || null;
+}
+
+function getReviewStore() {
+  return JSON.parse(localStorage.getItem("gameReviews")) || {};
+}
+
+function setReviewStore(reviewStore) {
+  localStorage.setItem("gameReviews", JSON.stringify(reviewStore));
+}
+
+function getReviewKey(game) {
+  return game.id || normalizeName(game.title);
+}
+
+function getGameReviews() {
+  if (!currentGame) {
+    return [];
+  }
+
+  return getReviewStore()[getReviewKey(currentGame)] || [];
+}
+
+function setGameReviews(reviews) {
+  const reviewStore = getReviewStore();
+  reviewStore[getReviewKey(currentGame)] = reviews;
+  setReviewStore(reviewStore);
 }
 
 function getSavedGameName(savedGame) {
@@ -281,12 +318,62 @@ function renderGame(game) {
   gamePopularity.textContent = game.popularity || 0;
   gameType.textContent = game.isCustom ? "추가한 게임" : "기본 게임";
   updateFavoriteButton(game.title);
+  renderReviews();
   document.title = `GameLog - ${game.title}`;
 }
 
 function showEmptyState() {
   detailPage.style.display = "none";
+  reviewSection.style.display = "none";
   emptyState.classList.add("show");
+}
+
+function formatReviewDate(value) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
+
+function createReviewCard(review) {
+  const card = document.createElement("article");
+  card.className = "review-card";
+
+  const top = document.createElement("div");
+  top.className = "review-card-top";
+
+  const author = document.createElement("span");
+  author.className = "review-author";
+  author.textContent = review.author;
+
+  const rating = document.createElement("strong");
+  rating.className = "review-rating";
+  rating.textContent = `${review.rating}점`;
+
+  const content = document.createElement("p");
+  content.textContent = review.content;
+
+  const meta = document.createElement("span");
+  meta.className = "review-meta";
+  meta.textContent = formatReviewDate(review.createdAt);
+
+  top.append(author, rating);
+  card.append(top, content, meta);
+
+  return card;
+}
+
+function renderReviews() {
+  const reviews = getGameReviews();
+  reviewList.textContent = "";
+  reviewCount.textContent = `${reviews.length}개`;
+  reviewEmpty.classList.toggle("hidden", reviews.length > 0);
+  reviews.forEach((review) => {
+    reviewList.append(createReviewCard(review));
+  });
 }
 
 const gameKey = new URLSearchParams(window.location.search).get("game");
@@ -320,4 +407,31 @@ favoriteAddBtn.addEventListener("click", () => {
   });
   setSavedGames(savedGames);
   updateFavoriteButton(currentGame.title);
+});
+
+reviewForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!currentGame) {
+    return;
+  }
+
+  const content = reviewText.value.trim();
+  if (!content) {
+    return;
+  }
+
+  const user = getLoginUser();
+  const reviews = getGameReviews();
+  reviews.unshift({
+    author: user?.name || user?.email || "익명",
+    rating: Number(reviewRating.value),
+    content,
+    createdAt: new Date().toISOString(),
+  });
+
+  setGameReviews(reviews);
+  reviewForm.reset();
+  reviewRating.value = "5";
+  renderReviews();
 });
