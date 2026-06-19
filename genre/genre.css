@@ -1,13 +1,10 @@
-/* 장르 화면의 색, 위치, 카드 모양을 정하는 CSS 파일입니다. */
 
-/* 모든 태그의 기본 여백을 없애서 화면을 맞추기 쉽게 합니다. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 자주 쓰는 색을 이름표처럼 저장해 둡니다. */
 :root {
   --bg: #10131a;
   --panel: #1c222b;
@@ -20,7 +17,6 @@
   --yellow: #f0b35a;
 }
 
-/* 페이지 전체의 배경색과 글자 모양입니다. */
 body {
   min-height: 100vh;
   background: #10131a;
@@ -50,7 +46,6 @@ select {
   box-shadow: none;
 }
 
-/* 맨 위 메뉴와 로고 영역입니다. */
 header {
   width: 100%;
   height: 90px;
@@ -156,7 +151,6 @@ main {
   background: #10131a;
 }
 
-/* 장르 페이지 위쪽의 큰 소개 영역입니다. */
 .genre-hero {
   position: relative;
   min-height: 250px;
@@ -199,7 +193,6 @@ main {
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34));
 }
 
-/* 왼쪽 장르 메뉴와 오른쪽 게임 목록을 나누는 큰 틀입니다. */
 .genre-layout {
   display: grid;
   grid-template-columns: 230px minmax(0, 1fr);
@@ -305,7 +298,6 @@ main {
   transform: translateY(-56%);
 }
 
-/* 사용자가 새 게임을 추가하는 입력 폼입니다. */
 .add-game-form {
   margin: 18px 0 24px;
   padding: 20px;
@@ -428,7 +420,6 @@ main {
   box-shadow: 0 12px 28px rgba(217, 119, 69, 0.28);
 }
 
-/* 게임 카드들이 들어가는 격자입니다. */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -437,7 +428,6 @@ main {
   min-height: 580px;
 }
 
-/* 게임 카드 하나의 모양입니다. */
 .game-card {
   position: relative;
   align-self: start;
@@ -564,7 +554,6 @@ main {
   background: rgba(153, 27, 27, 0.72);
 }
 
-/* 삭제 확인 창과 상세보기 창의 어두운 배경입니다. */
 .delete-modal,
 .detail-modal {
   position: fixed;
@@ -722,7 +711,6 @@ main {
   background: #334155;
 }
 
-/* 페이지 번호 버튼 영역입니다. */
 .pagination {
   min-height: 88px;
   display: flex;
@@ -763,7 +751,6 @@ main {
   cursor: default;
 }
 
-/* 페이지 맨 아래 footer 영역입니다. */
 footer {
   position: relative;
   padding: 28px 42px 44px;
@@ -828,7 +815,6 @@ footer {
   clip: rect(0, 0, 0, 0);
 }
 
-/* 화면이 작을 때 상세보기 창을 세로로 보기 좋게 바꿉니다. */
 @media (max-width: 760px) {
   .detail-modal-box {
     max-height: calc(100vh - 40px);

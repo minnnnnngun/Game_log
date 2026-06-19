@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- 장르별 게임 목록 화면의 뼈대를 만드는 HTML 파일입니다. -->
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +9,6 @@
 <body>
 
 <div class="linebox">
-    <!-- 맨 위 메뉴입니다. 다른 페이지로 이동할 수 있습니다. -->
     <header>
         <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
 
@@ -35,7 +33,6 @@
 
 
     <main>
-        <!-- 장르 페이지의 큰 소개 영역입니다. -->
         <section class="genre-hero">
             <div class="hero-copy">
                 <h1>오늘 하고 싶은 느낌으로 고르기</h1>
@@ -46,7 +43,6 @@
             </div>
         </section>
 
-        <!-- 왼쪽 장르 버튼과 오른쪽 게임 목록을 나누어 보여줍니다. -->
         <section class="genre-layout" aria-label="장르별 게임 목록">
             <aside class="genre-sidebar">
                 <h2>장르</h2>
@@ -80,7 +76,6 @@
                 </div>
 
                 <form class="add-game-form" id="addGameForm" autocomplete="off">
-                    <!-- 사용자가 직접 새 게임을 추가하는 입력 칸입니다. -->
                     <div class="form-title">
                         <h3>게임 추가</h3>
                         <p>빠진 게임이 있으면 여기서 바로 적어두세요.</p>
@@ -190,7 +185,6 @@
     </footer>
 </div>
 
-<!-- 게임을 삭제하기 전에 한 번 더 물어보는 창입니다. -->
 <div class="delete-modal" id="deleteModal" aria-hidden="true">
     <div class="delete-modal-box" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
         <h2 id="deleteModalTitle">게임 삭제</h2>
@@ -203,7 +197,6 @@
     </div>
 </div>
 
-<!-- 게임의 평점, 출시연도 같은 자세한 정보를 보여주는 창입니다. -->
 <div class="detail-modal" id="detailModal" aria-hidden="true">
     <div class="detail-modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
         <button type="button" class="detail-close" id="detailClose" aria-label="세부정보 닫기">×</button>
