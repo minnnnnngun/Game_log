@@ -29,6 +29,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+}
+
 .linebox {
   width: 100vw;
   min-height: 100vh;
@@ -209,6 +213,37 @@ main {
   color: #ded5c5;
   font-size: 17px;
   line-height: 1.7;
+}
+
+.favorite-add-btn {
+  width: fit-content;
+  min-height: 44px;
+  margin-top: 24px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--orange);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.favorite-add-btn:hover {
+  background: #c56836;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(217, 119, 69, 0.24);
+}
+
+.favorite-add-btn.saved {
+  background: #558b55;
+}
+
+.favorite-add-btn.saved:hover {
+  background: #477847;
 }
 
 .detail-list {

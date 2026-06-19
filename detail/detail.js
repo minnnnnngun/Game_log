@@ -177,10 +177,52 @@ const gameRating = document.querySelector("#gameRating");
 const gameYear = document.querySelector("#gameYear");
 const gamePopularity = document.querySelector("#gamePopularity");
 const gameType = document.querySelector("#gameType");
+const favoriteAddBtn = document.querySelector("#favoriteAddBtn");
 const DEFAULT_IMAGE_PATH = "../image/search.png";
+let currentGame = null;
 
 function normalizeName(name) {
   return String(name).toLowerCase().replace(/\s+/g, "").replace(/-/g, "");
+}
+
+function isLoggedIn() {
+  return Boolean(localStorage.getItem("loginUser"));
+}
+
+function requireLogin() {
+  if (isLoggedIn()) {
+    return true;
+  }
+
+  window.location.href = `../login/login.html?returnUrl=${encodeURIComponent(window.location.href)}`;
+  return false;
+}
+
+function getSavedGames() {
+  return JSON.parse(localStorage.getItem("favoriteGames")) || [];
+}
+
+function setSavedGames(games) {
+  localStorage.setItem("favoriteGames", JSON.stringify(games));
+}
+
+function getSavedGameName(savedGame) {
+  return typeof savedGame === "string" ? savedGame : savedGame.name;
+}
+
+function isFavoriteGame(gameTitle) {
+  return getSavedGames().some((savedGame) => normalizeName(getSavedGameName(savedGame)) === normalizeName(gameTitle));
+}
+
+function updateFavoriteButton(gameTitle) {
+  if (isFavoriteGame(gameTitle)) {
+    favoriteAddBtn.textContent = "즐겨찾기 저장됨";
+    favoriteAddBtn.classList.add("saved");
+    return;
+  }
+
+  favoriteAddBtn.textContent = "즐겨찾기 추가";
+  favoriteAddBtn.classList.remove("saved");
 }
 
 function getAddedGames() {
@@ -223,6 +265,7 @@ function findGame(gameKey) {
 }
 
 function renderGame(game) {
+  currentGame = game;
   gameImage.src = game.image || DEFAULT_IMAGE_PATH;
   gameImage.alt = `${game.title} 이미지`;
   gameImage.onerror = () => {
@@ -238,6 +281,7 @@ function renderGame(game) {
   gameYear.textContent = game.year || "미정";
   gamePopularity.textContent = game.popularity || 0;
   gameType.textContent = game.isCustom ? "추가한 게임" : "기본 게임";
+  updateFavoriteButton(game.title);
   document.title = `GameLog - ${game.title}`;
 }
 
@@ -254,3 +298,27 @@ if (game) {
 } else {
   showEmptyState();
 }
+
+favoriteAddBtn.addEventListener("click", () => {
+  if (!currentGame || !requireLogin()) {
+    return;
+  }
+
+  const savedGames = getSavedGames();
+
+  if (isFavoriteGame(currentGame.title)) {
+    setSavedGames(savedGames.filter((savedGame) => normalizeName(getSavedGameName(savedGame)) !== normalizeName(currentGame.title)));
+    updateFavoriteButton(currentGame.title);
+    return;
+  }
+
+  savedGames.push({
+    name: currentGame.title,
+    genre: getGameGenreNames(currentGame)[0],
+    rating: Number(currentGame.rating || 0),
+    year: currentGame.year || 2024,
+    imageSrc: currentGame.image || DEFAULT_IMAGE_PATH,
+  });
+  setSavedGames(savedGames);
+  updateFavoriteButton(currentGame.title);
+});
