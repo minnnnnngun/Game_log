@@ -174,10 +174,8 @@ const filterButtons = document.querySelectorAll(".genre-filter");
 const addGameForm = document.querySelector("#addGameForm");
 // 게임 이름 input을 가져옴.
 const addTitle = document.querySelector("#addTitle");
-// 장르 선택 select를 가져옴.
-const addGenre = document.querySelector("#addGenre");
-// 두 번째 장르 선택 select를 가져옴.
-const addGenreSecond = document.querySelector("#addGenreSecond");
+// 추가 form 안의 모든 장르 선택 select를 가져옴.
+const addGenreSelects = document.querySelectorAll(".add-genre-select");
 // 평점 input을 가져옴.
 const addRating = document.querySelector("#addRating");
 // 출시연도 input을 가져옴.
@@ -194,6 +192,24 @@ const deleteGameName = document.querySelector("#deleteGameName");
 const deleteConfirm = document.querySelector("#deleteConfirm");
 // 삭제 확인 모달의 "아니오" 버튼을 가져옴.
 const deleteCancel = document.querySelector("#deleteCancel");
+// 세부정보 모달 전체 영역을 가져옴.
+const detailModal = document.querySelector("#detailModal");
+// 세부정보 모달 닫기 버튼을 가져옴.
+const detailClose = document.querySelector("#detailClose");
+// 세부정보 모달 이미지 요소를 가져옴.
+const detailImage = document.querySelector("#detailImage");
+// 세부정보 모달 제목 요소를 가져옴.
+const detailTitle = document.querySelector("#detailTitle");
+// 세부정보 모달 장르 배지 영역을 가져옴.
+const detailGenres = document.querySelector("#detailGenres");
+// 세부정보 모달 평점 요소를 가져옴.
+const detailRating = document.querySelector("#detailRating");
+// 세부정보 모달 출시연도 요소를 가져옴.
+const detailYear = document.querySelector("#detailYear");
+// 세부정보 모달 인기점수 요소를 가져옴.
+const detailPopularity = document.querySelector("#detailPopularity");
+// 세부정보 모달 게임 구분 요소를 가져옴.
+const detailType = document.querySelector("#detailType");
 
 // form에서 선택한 장르 값을 화면에 보여줄 한글 이름으로 바꿔주는 객체임.
 const genreNames = {
@@ -214,12 +230,28 @@ const DEFAULT_IMAGE_PATH = "../image/search.png";
 
 // 예전 genre 하나짜리 데이터도 배열처럼 쓰게 맞춰줌.
 function getGameGenres(game) {
-  return game.genres || [game.genre];
+  if (Array.isArray(game.genres)) {
+    return game.genres;
+  }
+
+  if (game.genres) {
+    return [game.genres];
+  }
+
+  return [game.genre];
 }
 
 // 카드에 보여줄 장르 이름들도 배열로 맞춰줌.
 function getGameGenreNames(game) {
-  return game.genreNames || [game.genreName];
+  if (Array.isArray(game.genreNames)) {
+    return game.genreNames;
+  }
+
+  if (game.genreNames) {
+    return [game.genreNames];
+  }
+
+  return [game.genreName];
 }
 
 // 장르 배열에서 비어 있거나 중복인 값은 빼줌.
@@ -246,6 +278,29 @@ function getAddedGames() {
 function setAddedGames(addedGames) {
   // 배열은 바로 저장할 수 없어서 JSON 문자열로 바꿔 저장함.
   localStorage.setItem("addedGames", JSON.stringify(addedGames));
+}
+
+// localStorage에서 삭제한 기본 게임 id 목록을 가져오는 함수임.
+function getDeletedGameIds() {
+  return JSON.parse(localStorage.getItem("deletedGameIds")) || [];
+}
+
+// 삭제한 기본 게임 id 목록을 localStorage에 저장하는 함수임.
+function setDeletedGameIds(deletedGameIds) {
+  localStorage.setItem("deletedGameIds", JSON.stringify(deletedGameIds));
+}
+
+// 새로고침 후에도 삭제한 기본 게임이 다시 보이지 않게 하는 함수임.
+function loadDeletedGames() {
+  const deletedGameIds = getDeletedGameIds();
+
+  deletedGameIds.forEach((gameId) => {
+    const gameIndex = games.findIndex((game) => game.id === gameId);
+
+    if (gameIndex !== -1) {
+      games.splice(gameIndex, 1);
+    }
+  });
 }
 
 // 새로고침 후에도 사용자가 추가한 게임을 다시 불러오는 함수임.
@@ -397,12 +452,24 @@ function addGame(game) {
   renderGames();
 }
 
-// 사용자가 추가한 게임을 삭제하는 함수임.
-function deleteAddedGame(gameId) {
-  // localStorage 목록에서 삭제할 게임 id와 다른 게임만 남깁니다.
+// 게임을 삭제하는 함수임.
+function deleteGame(gameId) {
+  // 삭제할 게임 정보를 찾음.
+  const game = games.find((item) => item.id === gameId);
+  // localStorage 목록에서 삭제할 게임 id와 다른 게임만 남김.
   const addedGames = getAddedGames().filter((game) => game.id !== gameId);
   // 현재 games 배열에서 삭제할 게임의 위치를 찾음.
   const gameIndex = games.findIndex((game) => game.id === gameId);
+
+  // 기본 게임을 삭제했다면 새로고침 후에도 숨기기 위해 id를 저장함.
+  if (game && !game.isCustom) {
+    const deletedGameIds = getDeletedGameIds();
+
+    if (!deletedGameIds.includes(gameId)) {
+      deletedGameIds.push(gameId);
+      setDeletedGameIds(deletedGameIds);
+    }
+  }
 
   // 삭제할 게임을 찾았다면 games 배열에서 제거함.
   if (gameIndex !== -1) {
@@ -435,6 +502,35 @@ function closeDeleteModal() {
   deleteModal.setAttribute("aria-hidden", "true");
   // 선택했던 삭제 게임 id를 초기화함.
   selectedDeleteGameId = null;
+}
+
+// 세부정보 모달을 여는 함수임.
+function openDetailModal(game) {
+  const imagePath = game.image || DEFAULT_IMAGE_PATH;
+  const genreBadges = getGameGenreNames(game)
+    .map((genreName) => `<span class="genre-badge">${genreName}</span>`)
+    .join("");
+
+  detailImage.src = imagePath;
+  detailImage.alt = `${game.title} 이미지`;
+  detailImage.onerror = () => {
+    detailImage.onerror = null;
+    detailImage.src = DEFAULT_IMAGE_PATH;
+  };
+  detailTitle.textContent = game.title;
+  detailGenres.innerHTML = genreBadges;
+  detailRating.textContent = game.rating.toFixed(1);
+  detailYear.textContent = game.year;
+  detailPopularity.textContent = game.popularity;
+  detailType.textContent = game.isCustom ? "추가한 게임" : "기본 게임";
+  detailModal.classList.add("open");
+  detailModal.setAttribute("aria-hidden", "false");
+}
+
+// 세부정보 모달을 닫는 함수임.
+function closeDetailModal() {
+  detailModal.classList.remove("open");
+  detailModal.setAttribute("aria-hidden", "true");
 }
 
 // 게임 카드와 페이지네이션을 화면에 그리는 함수임.
@@ -474,7 +570,10 @@ function renderGames() {
                     <span class="rating">${game.rating.toFixed(1)}</span>
                     <span>${game.year}</span>
                 </div>
-                ${game.isCustom ? `<button type="button" class="delete-game-btn" data-id="${game.id}">삭제</button>` : ""}
+                <div class="card-actions">
+                    <button type="button" class="detail-game-btn" data-id="${game.id}">세부정보 보기</button>
+                    <button type="button" class="delete-game-btn" data-id="${game.id}">삭제</button>
+                </div>
             </div>
         </article>
     `;
@@ -540,11 +639,7 @@ addGameForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   // 사용자가 선택한 장르 값들을 가져옴.
-  const selectedGenres = [addGenre.value];
-
-  if (addGenreSecond) {
-    selectedGenres.push(addGenreSecond.value);
-  }
+  const selectedGenres = Array.from(addGenreSelects).map((select) => select.value);
 
   const genres = getUniqueGenres(selectedGenres);
   // input 값들을 모아 새 게임 객체를 만듦.
@@ -613,11 +708,24 @@ pagination.addEventListener("click", (event) => {
 gameGrid.addEventListener("click", (event) => {
   // 클릭한 대상에서 가장 가까운 삭제 버튼을 찾음.
   const deleteButton = event.target.closest(".delete-game-btn");
+  // 클릭한 대상에서 가장 가까운 세부정보 버튼을 찾음.
+  const detailButton = event.target.closest(".detail-game-btn");
   // 클릭한 대상에서 가장 가까운 게임 카드를 찾음.
   const gameCard = event.target.closest(".game-card");
 
   // 게임 카드 바깥을 클릭했다면 아무것도 안 함.
   if (!gameCard) {
+    return;
+  }
+
+  // 세부정보 버튼을 클릭했다면 세부정보 모달을 엶.
+  if (detailButton) {
+    const game = games.find((item) => item.id === detailButton.dataset.id);
+
+    if (game) {
+      openDetailModal(game);
+    }
+
     return;
   }
 
@@ -632,14 +740,6 @@ gameGrid.addEventListener("click", (event) => {
     }
 
     // 삭제 버튼 클릭 이후 아래 카드 선택 코드는 실행안 함.
-    return;
-  }
-
-  // 기본 게임 카드는 삭제 버튼이 없으므로 선택 표시만 모두 지움.
-  if (!gameCard.querySelector(".delete-game-btn")) {
-    gameGrid
-      .querySelectorAll(".game-card")
-      .forEach((card) => card.classList.remove("show-delete"));
     return;
   }
 
@@ -659,7 +759,7 @@ gameGrid.addEventListener("click", (event) => {
 deleteConfirm.addEventListener("click", () => {
   // 삭제할 게임 id가 있을 때만 삭제함.
   if (selectedDeleteGameId) {
-    deleteAddedGame(selectedDeleteGameId);
+    deleteGame(selectedDeleteGameId);
   }
 
   // 삭제 후 모달을 닫음.
@@ -677,15 +777,31 @@ deleteModal.addEventListener("click", (event) => {
   }
 });
 
+// 세부정보 모달 닫기 버튼을 클릭하면 모달을 닫음.
+detailClose.addEventListener("click", closeDetailModal);
+
+// 세부정보 모달의 바깥 어두운 배경을 클릭하면 모달을 닫음.
+detailModal.addEventListener("click", (event) => {
+  if (event.target === detailModal) {
+    closeDetailModal();
+  }
+});
+
 // 키보드에서 Escape를 누르면 삭제 확인 모달을 닫음.
 document.addEventListener("keydown", (event) => {
   // Escape 키이고 삭제 모달이 열려 있으면 닫음.
   if (event.key === "Escape" && deleteModal.classList.contains("open")) {
     closeDeleteModal();
   }
+
+  // Escape 키이고 세부정보 모달이 열려 있으면 닫음.
+  if (event.key === "Escape" && detailModal.classList.contains("open")) {
+    closeDetailModal();
+  }
 });
 
 // 페이지가 처음 열릴 때 localStorage에 저장된 추가 게임을 불러옴.
+loadDeletedGames();
 loadAddedGames();
 // 모든 준비가 끝나면 게임 목록을 처음으로 화면에 그림.
 renderGames();

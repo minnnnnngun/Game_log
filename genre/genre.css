@@ -588,21 +588,41 @@ main {
   color: var(--yellow);
 }
 
-/* 사용자가 추가한 게임에만 나타나는 삭제 버튼임. */
+/* 카드 안의 버튼 묶음임. */
+.card-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* 카드 안의 액션 버튼 공통 스타일임. */
+.detail-game-btn,
 .delete-game-btn {
   width: 100%;
   height: 38px;
-  margin-top: 14px;
   border: 1px solid rgba(248, 113, 113, 0.35);
   border-radius: 8px;
-  background: rgba(127, 29, 29, 0.38);
-  color: #fecaca;
   font-weight: 800;
   cursor: pointer;
-  display: none;
   transition:
     background 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* 세부정보 보기 버튼임. */
+.detail-game-btn {
+  border-color: rgba(139, 92, 246, 0.42);
+  background: rgba(91, 53, 201, 0.28);
+  color: #eee8ff;
+}
+
+/* 삭제 버튼은 처음에는 숨김. */
+.delete-game-btn {
+  background: rgba(127, 29, 29, 0.38);
+  color: #fecaca;
+  display: none;
 }
 
 /* 카드를 클릭해 show-delete가 붙었을 때 삭제 버튼을 보여줌. */
@@ -611,13 +631,20 @@ main {
 }
 
 /* 삭제 버튼 hover 효과임. */
+.detail-game-btn:hover {
+  border-color: rgba(139, 92, 246, 0.9);
+  background: rgba(109, 66, 217, 0.58);
+  transform: translateY(-1px);
+}
+
 .delete-game-btn:hover {
   border-color: rgba(248, 113, 113, 0.85);
   background: rgba(153, 27, 27, 0.72);
 }
 
-/* 삭제 확인 모달의 어두운 배경임. */
-.delete-modal {
+/* 모달의 어두운 배경임. */
+.delete-modal,
+.detail-modal {
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -629,7 +656,8 @@ main {
 }
 
 /* 모달에 open 클래스가 붙으면 화면에 표시함. */
-.delete-modal.open {
+.delete-modal.open,
+.detail-modal.open {
   display: flex;
 }
 
@@ -654,6 +682,91 @@ main {
 .delete-modal-box p {
   color: #cbd5e1;
   line-height: 1.5;
+}
+
+/* 세부정보 모달 박스임. */
+.detail-modal-box {
+  position: relative;
+  width: min(720px, 100%);
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #111b2e;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+}
+
+/* 세부정보 모달 닫기 버튼임. */
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.72);
+  color: white;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* 세부정보 이미지임. */
+.detail-image {
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  object-fit: contain;
+  padding: 22px;
+  background: #0b1220;
+}
+
+/* 세부정보 텍스트 영역임. */
+.detail-content {
+  padding: 30px 28px;
+}
+
+.detail-content h2 {
+  padding-right: 36px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.detail-genres {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-list {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.detail-list div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.detail-list dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.detail-list dd {
+  margin-top: 6px;
+  color: white;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 /* 삭제할 게임 이름을 강조함. */
@@ -819,4 +932,21 @@ footer {
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+@media (max-width: 760px) {
+  .detail-modal-box {
+    max-height: calc(100vh - 40px);
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .detail-image {
+    min-height: 220px;
+    height: 240px;
+  }
+
+  .detail-list {
+    grid-template-columns: 1fr;
+  }
 }

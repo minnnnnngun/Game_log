@@ -85,8 +85,24 @@
                         </label>
 
                         <label>
-                            장르
-                            <select id="addGenre" required>
+                            장르 1
+                            <select id="addGenre" class="add-genre-select" required>
+                                <option value="action">액션</option>
+                                <option value="rpg">RPG</option>
+                                <option value="fps">FPS</option>
+                                <option value="adventure">어드벤처</option>
+                                <option value="sports">스포츠</option>
+                                <option value="racing">레이싱</option>
+                                <option value="strategy">전략</option>
+                                <option value="simulation">시뮬레이션</option>
+                                <option value="puzzle">퍼즐</option>
+                                <option value="horror">공포</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            장르 2
+                            <select id="addGenre2" class="add-genre-select" required>
                                 <option value="action">액션</option>
                                 <option value="rpg">RPG</option>
                                 <option value="fps">FPS</option>
@@ -169,6 +185,37 @@
         <div class="delete-modal-actions">
             <button type="button" class="delete-yes" id="deleteConfirm">네</button>
             <button type="button" class="delete-no" id="deleteCancel">아니오</button>
+        </div>
+    </div>
+</div>
+
+<div class="detail-modal" id="detailModal" aria-hidden="true">
+    <div class="detail-modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+        <button type="button" class="detail-close" id="detailClose" aria-label="세부정보 닫기">×</button>
+        <img src="../image/search.png" alt="" class="detail-image" id="detailImage">
+
+        <div class="detail-content">
+            <h2 id="detailTitle">게임 이름</h2>
+            <div class="detail-genres" id="detailGenres"></div>
+
+            <dl class="detail-list">
+                <div>
+                    <dt>평점</dt>
+                    <dd id="detailRating">0.0</dd>
+                </div>
+                <div>
+                    <dt>출시연도</dt>
+                    <dd id="detailYear">2024</dd>
+                </div>
+                <div>
+                    <dt>인기점수</dt>
+                    <dd id="detailPopularity">0</dd>
+                </div>
+                <div>
+                    <dt>구분</dt>
+                    <dd id="detailType">기본 게임</dd>
+                </div>
+            </dl>
         </div>
     </div>
 </div>
