@@ -1,7 +1,4 @@
-// 즐겨찾기 화면을 움직이게 만드는 자바스크립트 파일입니다.
-// 저장한 게임을 보여주고, 정렬하고, 삭제하는 일을 담당합니다.
 
-// HTML에 있는 즐겨찾기 목록, 정렬 버튼, 삭제 확인 창을 가져옵니다.
 const favoriteList = document.getElementById("favoriteList");
 const favoriteSort = document.getElementById("favoriteSort");
 const favoriteCount = document.getElementById("favoriteCount");
@@ -12,7 +9,6 @@ const removeGameName = document.getElementById("removeGameName");
 const removeConfirm = document.getElementById("removeConfirm");
 const removeCancel = document.getElementById("removeCancel");
 
-// 홈에서 저장한 이름과 연결해 보여줄 게임 정보 목록입니다.
 const gameCatalog = [
   {
     name: "Valorant",
@@ -96,21 +92,16 @@ const gameCatalog = [
   },
 ];
 
-// 삭제 확인 창에서 어떤 게임을 지울지 잠깐 기억합니다.
 let selectedRemoveName = null;
 
-// 즐겨찾기 데이터는 홈 화면과 같은 localStorage의 "favoriteGames"에 저장됩니다.
-// 그래서 홈에서 저장한 게임을 즐겨찾기 화면에서도 볼 수 있습니다.
 function getSavedGames() {
   return JSON.parse(localStorage.getItem("favoriteGames")) || [];
 }
 
-// 바뀐 즐겨찾기 목록을 localStorage의 "favoriteGames" 자리에 다시 저장합니다.
 function setSavedGames(games) {
   localStorage.setItem("favoriteGames", JSON.stringify(games));
 }
 
-// 즐겨찾기 관리는 로그인한 사용자만 사용할 수 있습니다.
 function isLoggedIn() {
   return Boolean(localStorage.getItem("loginUser"));
 }
@@ -126,22 +117,18 @@ function requireLogin() {
 
 requireLogin();
 
-// 이름을 비교하기 쉽게 소문자로 만들고 띄어쓰기를 없앱니다.
 function normalizeName(name) {
   return String(name).toLowerCase().replace(/\s+/g, "");
 }
 
-// 게임 이름을 상세보기 페이지 주소로 바꿉니다.
 function getDetailPageUrl(gameName) {
   return `../detail/detail.html?game=${encodeURIComponent(gameName)}`;
 }
 
-// 저장된 값이 글자여도, 객체여도 게임 이름만 꺼냅니다.
 function getSavedName(savedGame) {
   return typeof savedGame === "string" ? savedGame : savedGame.name;
 }
 
-// 저장된 게임 이름과 catalog 안의 게임 정보를 맞춰 찾습니다.
 function findCatalogGame(name) {
   const normalized = normalizeName(name);
 
@@ -151,7 +138,6 @@ function findCatalogGame(name) {
   });
 }
 
-// 저장된 값을 화면에 그리기 좋은 게임 정보 모양으로 바꿉니다.
 function toFavoriteGame(savedGame, index) {
   const savedName = getSavedName(savedGame);
   const catalogGame = findCatalogGame(savedName);
@@ -181,7 +167,6 @@ function toFavoriteGame(savedGame, index) {
   };
 }
 
-// 정렬 기준에 맞게 즐겨찾기 목록을 정리합니다.
 function getSortedFavorites() {
   const favorites = getSavedGames().map((game, index) => toFavoriteGame(game, index));
 
@@ -198,7 +183,6 @@ function getSortedFavorites() {
   });
 }
 
-// 즐겨찾기에서 지울지 물어보는 창을 엽니다.
 function openRemoveModal(gameName) {
   if (!requireLogin()) {
     return;
@@ -210,21 +194,18 @@ function openRemoveModal(gameName) {
   removeModal.setAttribute("aria-hidden", "false");
 }
 
-// 즐겨찾기 삭제 확인 창을 닫습니다.
 function closeRemoveModal() {
   selectedRemoveName = null;
   removeModal.classList.remove("open");
   removeModal.setAttribute("aria-hidden", "true");
 }
 
-// 선택한 게임을 즐겨찾기 목록에서 뺍니다.
 function removeFavorite(gameName) {
   const savedGames = getSavedGames().filter((game) => getSavedName(game) !== gameName);
   setSavedGames(savedGames);
   renderFavorites();
 }
 
-// 즐겨찾기 게임 카드 하나를 만듭니다.
 function createFavoriteCard(game) {
   const card = document.createElement("article");
   card.className = "favorite-card";
@@ -260,7 +241,6 @@ function createFavoriteCard(game) {
   return card;
 }
 
-// 저장된 즐겨찾기 목록을 화면에 다시 그립니다.
 function renderFavorites() {
   const favoriteGames = getSortedFavorites();
   favoriteList.textContent = "";
@@ -275,18 +255,15 @@ function renderFavorites() {
 
 favoriteSort.addEventListener("change", renderFavorites);
 
-// 전체 삭제 버튼을 누르면 즐겨찾기를 모두 비웁니다.
 clearFavorites.addEventListener("click", () => {
   if (!requireLogin()) {
     return;
   }
 
-  // "favoriteGames"를 빈 배열로 저장해서 즐겨찾기를 모두 지운 상태로 만듭니다.
   setSavedGames([]);
   renderFavorites();
 });
 
-// 삭제 확인 버튼을 누르면 선택한 게임만 지웁니다.
 removeConfirm.addEventListener("click", () => {
   if (!requireLogin()) {
     return;
@@ -301,19 +278,16 @@ removeConfirm.addEventListener("click", () => {
 
 removeCancel.addEventListener("click", closeRemoveModal);
 
-// 창 바깥쪽 어두운 부분을 누르면 창을 닫습니다.
 removeModal.addEventListener("click", (event) => {
   if (event.target === removeModal) {
     closeRemoveModal();
   }
 });
 
-// Esc 키를 누르면 열려 있는 삭제 확인 창을 닫습니다.
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && removeModal.classList.contains("open")) {
     closeRemoveModal();
   }
 });
 
-// 페이지가 처음 열렸을 때 즐겨찾기 목록을 보여줍니다.
 renderFavorites();
