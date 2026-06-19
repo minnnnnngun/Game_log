@@ -1,4 +1,3 @@
-// 게임 상세보기 화면에 맞는 게임 정보를 찾아서 보여주는 자바스크립트 파일입니다.
 const defaultGames = [
   {
     id: "valorant",
