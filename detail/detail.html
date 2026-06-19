@@ -61,6 +61,39 @@
             </div>
         </section>
 
+        <section class="review-panel" id="reviewSection">
+            <div class="review-top">
+                <div>
+                    <span>리뷰</span>
+                    <h2>플레이 후기를 남겨보세요</h2>
+                </div>
+                <strong id="reviewCount">0개</strong>
+            </div>
+
+            <form class="review-form" id="reviewForm">
+                <label>
+                    평점
+                    <select id="reviewRating" required>
+                        <option value="5">5점</option>
+                        <option value="4">4점</option>
+                        <option value="3">3점</option>
+                        <option value="2">2점</option>
+                        <option value="1">1점</option>
+                    </select>
+                </label>
+
+                <label class="review-text-field">
+                    내용
+                    <textarea id="reviewText" rows="4" maxlength="300" placeholder="이 게임에 대한 리뷰를 작성하세요." required></textarea>
+                </label>
+
+                <button type="submit">리뷰 등록</button>
+            </form>
+
+            <div class="review-list" id="reviewList"></div>
+            <p class="review-empty" id="reviewEmpty">아직 작성된 리뷰가 없습니다.</p>
+        </section>
+
         <section class="empty-state" id="emptyState">
             <img src="../image/search.png" alt="" aria-hidden="true">
             <h1>게임 정보를 찾을 수 없습니다.</h1>
