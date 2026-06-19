@@ -1,4 +1,3 @@
-// 회원가입 화면을 움직이게 만드는 자바스크립트 파일입니다.
 const signupForm = document.querySelector("#signupForm");
 const signupName = document.querySelector("#signupName");
 const signupEmail = document.querySelector("#signupEmail");
