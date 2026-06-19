@@ -72,6 +72,53 @@
                     </label>
                 </div>
 
+                <form class="add-game-form" id="addGameForm" autocomplete="off">
+                    <div class="form-title">
+                        <h3>게임 추가</h3>
+                        <p>새 게임 정보를 입력하면 장르 목록에 바로 추가됩니다.</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <label>
+                            게임 이름
+                            <input type="text" id="addTitle" placeholder="예: 마인크래프트" required>
+                        </label>
+
+                        <label>
+                            장르
+                            <select id="addGenre" required>
+                                <option value="action">액션</option>
+                                <option value="rpg">RPG</option>
+                                <option value="fps">FPS</option>
+                                <option value="adventure">어드벤처</option>
+                                <option value="sports">스포츠</option>
+                                <option value="racing">레이싱</option>
+                                <option value="strategy">전략</option>
+                                <option value="simulation">시뮬레이션</option>
+                                <option value="puzzle">퍼즐</option>
+                                <option value="horror">공포</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            평점
+                            <input type="number" id="addRating" min="0" max="5" step="0.1" placeholder="4.5" required>
+                        </label>
+
+                        <label>
+                            출시연도
+                            <input type="number" id="addYear" min="1970" max="2030" placeholder="2024" required>
+                        </label>
+
+                        <label class="image-input">
+                            이미지 경로
+                            <input type="text" id="addImage" placeholder="../image/파일명.png">
+                        </label>
+                    </div>
+
+                    <button type="submit">추가하기</button>
+                </form>
+
                 <div class="game-grid" id="gameGrid"></div>
 
                 <div class="pagination" id="pagination" aria-label="페이지 이동"></div>
@@ -107,6 +154,18 @@
         </div>
         <p class="copyright">© 2024 GameLog. All rights reserved.</p>
     </footer>
+</div>
+
+<div class="delete-modal" id="deleteModal" aria-hidden="true">
+    <div class="delete-modal-box" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <h2 id="deleteModalTitle">게임 삭제</h2>
+        <p><span id="deleteGameName"></span> 삭제하겠습니까?</p>
+
+        <div class="delete-modal-actions">
+            <button type="button" class="delete-yes" id="deleteConfirm">네</button>
+            <button type="button" class="delete-no" id="deleteCancel">아니오</button>
+        </div>
+    </div>
 </div>
 
 <script src="genre.js"></script>
