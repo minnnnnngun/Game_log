@@ -1,292 +1,553 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* 자주 쓰는 색상을 변수로 저장해서 아래에서 반복 사용함. */
 :root {
-    --bg: #07101f;
-    --panel: #111a2c;
-    --panel-light: #172238;
-    --line: rgba(148, 163, 184, 0.18);
-    --text: #f8fafc;
-    --muted: #aeb8ca;
-    --purple: #8b5cf6;
-    --purple-dark: #5b35c9;
-    --yellow: #facc15;
+  --bg: #10131a;
+  --panel: #1c222b;
+  --panel-light: #242b35;
+  --line: rgba(221, 210, 188, 0.16);
+  --text: #f5f1e8;
+  --muted: #c8c0b1;
+  --purple: #2f7c76;
+  --purple-dark: #22645f;
+  --yellow: #f0b35a;
 }
 
-/* 페이지 전체 배경과 기본 글자 스타일을 설정함. */
 body {
-    min-height: 100vh;
-    background:
-            radial-gradient(circle at 84% 20%, rgba(80, 58, 177, 0.2), transparent 28%),
-            linear-gradient(180deg, #050b17 0%, #0b1323 48%, #0c1423 100%);
-    color: var(--text);
-    font-family: Arial, "Noto Sans KR", sans-serif;
-    overflow-x: hidden;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
 }
 
-/* 링크의 밑줄을 없애고 부모 색상을 그대로 사용하게 함. */
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
-/* 버튼과 select가 body의 폰트를 그대로 쓰게 함. */
 button,
+input,
 select {
-    font: inherit;
+  font: inherit;
 }
 
-/* 헤더만 감싸는 상단 영역임. */
 .linebox {
-    width: 100%;
-    margin: 0;
-    overflow: visible;
-    border: none;
-    border-radius: 0;
-    background: rgba(7, 16, 31, 0.95);
-    box-shadow: none;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  background: rgba(16, 19, 26, 0.95);
 }
 
-/* 상단 헤더 영역임. 로고, 메뉴, 프로필 아이콘이 들어감. */
 header {
-    width: 100%;
-    height: 90px;
-    padding: 0 42px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-    background: rgba(5, 12, 26, 0.94);
+  width: 100%;
+  height: 90px;
+  padding: 0 42px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(221, 210, 188, 0.13);
+  background: rgba(15, 18, 25, 0.96);
 }
 
-/* GameLog 로고 텍스트 스타일임. */
 .logo {
-    width: 210px;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 0;
+  width: 210px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
-/* 로고에서 Log 부분만 보라색으로 강조함. */
 .logo span {
-    color: var(--purple);
+  color: var(--purple);
 }
 
-/* nav는 메뉴 목록과 오른쪽 아이콘을 가로로 배치함. */
 nav {
-    flex: 1;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-/* 상단 메뉴들을 가운데 정렬하고 간격을 줌. */
 nav ul {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    gap: 56px;
-    list-style: none;
-    transform: translateX(-100px);
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 56px;
+  list-style: none;
+  transform: translateX(-100px);
 }
 
-/* 상단 메뉴 링크의 기본 스타일임. */
 nav a {
-    position: relative;
-    color: #e2e8f0;
-    font-size: 16px;
-    transition: color 0.2s ease;
+  position: relative;
+  color: #e2e8f0;
+  font-size: 16px;
+  transition: color 0.2s ease;
 }
 
-/* 메뉴에 마우스를 올리거나 현재 페이지 메뉴일 때 보라색으로 표시함. */
 nav a:hover,
 nav a.active {
-    color: var(--purple);
+  color: var(--purple);
 }
 
-/* 현재 페이지 메뉴 아래에 보라색 밑줄을 만듦. */
 nav a.active::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -25px;
-    width: 52px;
-    height: 3px;
-    border-radius: 99px;
-    background: var(--purple);
-    transform: translateX(-50%);
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -25px;
+  width: 52px;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--purple);
+  transform: translateX(-50%);
 }
 
-/* 오른쪽 아이콘들을 가로로 배치함. */
 .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-/* 프로필 이미지 두 장을 겹쳐 놓기 위한 부모 박스임. */
+.search-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 8px;
+  background: rgba(18, 23, 32, 0.72);
+}
+
+.search-icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: invert(1);
+}
+
 .profile-icon {
-    position: relative;
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
 }
 
-/* 기본 프로필 이미지와 hover 프로필 이미지의 공통 스타일임. */
 .profile {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    transition:
-            opacity 0.25s ease,
-            transform 0.25s ease;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
-/* hover용 프로필 이미지는 처음에는 보이지 않게 함. */
 .profile-hover {
-    opacity: 0;
+  opacity: 0;
 }
 
-/* 프로필에 마우스를 올리면 기본 이미지를 숨김. */
 .profile-icon:hover .profile-default {
-    opacity: 0;
-    transform: scale(0.92);
+  opacity: 0;
+  transform: scale(0.92);
 }
 
-/* 프로필에 마우스를 올리면 hover 이미지를 보여줌. */
 .profile-icon:hover .profile-hover {
-    opacity: 1;
-    transform: scale(1.06);
+  opacity: 1;
+  transform: scale(1.06);
 }
 
-/* main 전체에 어두운 그라데이션 배경을 줌. */
 main {
-    min-height: calc(100vh - 90px);
-    padding: 92px 24px 110px;
-    background: linear-gradient(
-            180deg,
-            rgba(15, 23, 42, 0.3),
-            rgba(7, 16, 31, 0.9)
-    );
+  padding: 34px 42px 46px;
+  background: #10131a;
 }
 
-h1  {
-    font-size: 36px;
-    line-height: 1.2;
-    margin-left: 100px;
-    padding-bottom: 24px;
-    font-weight: 600;
-    letter-spacing: 2px;
+.search-panel {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 26px 0 18px;
 }
 
- h3  {
-    font-size: 20px;
-    line-height: 1.2;
-     font-weight: 600;
-     margin-left: 100px;
-     letter-spacing: 2px;
-     color: var(--muted);
+.search-panel h1 {
+  margin-bottom: 10px;
+  font-size: 30px;
+  line-height: 1.25;
 }
 
+.search-panel p {
+  color: var(--muted);
+  font-size: 15px;
+}
 
- .search-form {
-     display: flex;
-     align-items: center;
-     ;
- }
+.search-form {
+  width: min(620px, 100%);
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px;
+  gap: 12px;
+}
 
+.search-form input {
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #121720;
+  color: white;
+  outline: 0;
+}
 
+.search-form input:focus {
+  border-color: rgba(240, 179, 90, 0.78);
+  box-shadow: 0 0 0 3px rgba(240, 179, 90, 0.12);
+}
 
+.search-form input::placeholder {
+  color: #8b96a8;
+}
 
+.search-form button {
+  height: 48px;
+  border: 0;
+  border-radius: 8px;
+  background: #d97745;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
 
+.search-form button:hover {
+  background: #c56836;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(217, 119, 69, 0.24);
+}
 
+.result-section {
+  max-width: 1120px;
+  margin: 0 auto;
+}
 
+.result-top {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
 
+.result-top p {
+  color: #dbe4f0;
+  font-size: 15px;
+  font-weight: 800;
+}
 
+.result-top span {
+  color: var(--yellow);
+}
 
+.sort-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
 
+.sort-box select {
+  appearance: none;
+  min-width: 142px;
+  height: 42px;
+  padding: 0 36px 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(45deg, transparent 50%, #cbd5e1 50%) right 17px center / 6px 6px no-repeat,
+    linear-gradient(135deg, #cbd5e1 50%, transparent 50%) right 12px center / 6px 6px no-repeat,
+    #121720;
+  color: #e5e7eb;
+  cursor: pointer;
+  outline: 0;
+}
 
+.game-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
 
+.game-card {
+  overflow: hidden;
+  border: 1px solid rgba(240, 179, 90, 0.28);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
 
+.game-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(240, 179, 90, 0.85);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28);
+}
 
+.game-thumb {
+  width: 100%;
+  height: 145px;
+  display: block;
+  object-fit: contain;
+  padding: 16px;
+  background: #121720;
+}
 
+.game-info {
+  padding: 13px 14px 14px;
+}
 
+.game-info h2 {
+  min-height: 42px;
+  margin-bottom: 9px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.genre-badges {
+  min-height: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.genre-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--purple);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.card-bottom {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.rating {
+  color: #e5e7eb;
+}
+
+.rating::before {
+  content: "★";
+  margin-right: 4px;
+  color: var(--yellow);
+}
+
+.empty-message {
+  display: none;
+  margin: 90px 0 120px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.empty-message.show {
+  display: block;
+}
+
+.pagination {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page-btn,
+.page-dots {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #142038;
+  color: #dbe4f0;
+}
+
+.page-btn {
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.page-btn:hover,
+.page-btn.active {
+  border-color: rgba(240, 179, 90, 0.8);
+  background: var(--purple);
+  color: white;
+}
+
+.page-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
 
 footer {
-    position: relative;
-    padding: 28px 42px 44px;
-    display: grid;
-    grid-template-columns: 270px 1fr 250px;
-    gap: 36px;
-    border-top: 1px solid var(--line);
-    background: linear-gradient(180deg, #111b2d, #0d1729);
+  padding: 28px 42px 44px;
+  display: grid;
+  grid-template-columns: 270px 1fr 250px;
+  gap: 36px;
+  border-top: 1px solid var(--line);
+  background: #121720;
 }
 
-/* footer 안의 로고 스타일임. */
 .footer-brand .logo {
-    display: block;
-    width: auto;
-    margin-bottom: 18px;
-    font-size: 24px;
+  display: block;
+  width: auto;
+  margin-bottom: 18px;
+  font-size: 24px;
 }
 
-/* footer 설명, 저작권, 링크의 공통 텍스트 스타일임. */
 .footer-brand p,
 .copyright,
 .footer-links a {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
 }
 
-/* footer SNS 아이콘 자리임. */
 .socials {
-    margin-top: 20px;
-    display: flex;
-    gap: 18px;
-    color: #aeb8ca;
+  margin-top: 20px;
+  display: flex;
+  gap: 18px;
+  color: #c8c0b1;
 }
 
-/* footer 링크 그룹을 3열로 배치함. */
 .footer-links {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
 }
 
-/* footer 링크 그룹 제목임. */
 .footer-links h3 {
-    margin-bottom: 13px;
-    font-size: 15px;
+  margin-bottom: 13px;
+  font-size: 15px;
 }
 
-/* footer 링크는 한 줄씩 보이게 함. */
 .footer-links a {
-    display: block;
+  display: block;
 }
 
-/* footer 링크 hover 효과임. */
 .footer-links a:hover {
-    color: white;
+  color: white;
 }
 
-/* copyright 문구 위치임. */
 .copyright {
-    align-self: center;
-    text-align: right;
+  align-self: center;
+  text-align: right;
 }
 
-/* 화면에는 안 보이지만 스크린리더에는 필요한 텍스트를 숨기는 클래스임. */
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+@media (max-width: 980px) {
+  nav ul {
+    gap: 26px;
+    transform: none;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
+  .copyright {
+    text-align: left;
+  }
+}
+
+@media (max-width: 720px) {
+  header {
+    height: auto;
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .logo {
+    width: auto;
+    margin-right: 20px;
+  }
+
+  nav {
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 14px 20px;
+  }
+
+  nav a.active::after {
+    bottom: -8px;
+  }
+
+  main {
+    padding: 26px 20px 34px;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .result-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  footer {
+    padding: 28px 20px 34px;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
 }
