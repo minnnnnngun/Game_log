@@ -12,11 +12,22 @@ const games = [
   {
     id: "battleground",
     title: "배틀그라운드",
+    aliases: ["BATTLEGROUND"],
     genreNames: ["FPS"],
     rating: 4.5,
     year: 2022,
     popularity: 94,
     image: "../image/BAG.jpg",
+  },
+  {
+    id: "overwatch-2",
+    title: "오버워치",
+    aliases: ["Overwatch", "Overwatch 2"],
+    genreNames: ["FPS", "액션"],
+    rating: 4.3,
+    year: 2022,
+    popularity: 88,
+    image: "../image/Overwatch-Logo-640x400.png",
   },
   {
     id: "genshin",
@@ -75,11 +86,32 @@ const games = [
   {
     id: "league-of-legends",
     title: "리그 오브 레전드",
+    aliases: ["League of Legends", "LOL"],
     genreNames: ["전략", "액션"],
     rating: 5.0,
     year: 2009,
     popularity: 100,
     image: "../image/League of lengends (1).png",
+  },
+  {
+    id: "maplestory",
+    title: "메이플스토리",
+    aliases: ["MapleStory"],
+    genreNames: ["RPG", "어드벤처"],
+    rating: 4.4,
+    year: 2003,
+    popularity: 90,
+    image: "../image/maple.jpg",
+  },
+  {
+    id: "ark",
+    title: "아크",
+    aliases: ["ARK"],
+    genreNames: ["어드벤처", "시뮬레이션"],
+    rating: 4.4,
+    year: 2018,
+    popularity: 78,
+    image: "../image/ARK.jpg",
   },
   {
     id: "minecraft",
@@ -123,6 +155,37 @@ const perPage = 8;
 let currentPage = 1;
 let keyword = "";
 
+function getAddedGames() {
+  return JSON.parse(localStorage.getItem("addedGames")) || [];
+}
+
+function getGameGenreNames(game) {
+  if (Array.isArray(game.genreNames)) {
+    return game.genreNames;
+  }
+
+  if (game.genreNames) {
+    return [game.genreNames];
+  }
+
+  return ["게임"];
+}
+
+function getSearchGames() {
+  const addedGames = getAddedGames().map((game) => ({
+    id: game.id,
+    title: game.title,
+    aliases: [],
+    genreNames: getGameGenreNames(game),
+    rating: Number(game.rating || 0),
+    year: Number(game.year || 2024),
+    popularity: Number(game.popularity || 60),
+    image: game.image || "../image/search.png",
+  }));
+
+  return [...games, ...addedGames];
+}
+
 function getDetailPageUrl(gameId) {
   return `../detail/detail.html?game=${encodeURIComponent(gameId)}`;
 }
@@ -133,12 +196,13 @@ function normalizeText(value) {
 
 function getFilteredGames() {
   const normalizedKeyword = normalizeText(keyword);
+  const searchGames = getSearchGames();
   const filtered = normalizedKeyword
-    ? games.filter((game) => {
-        const haystack = normalizeText(`${game.title} ${game.genreNames.join(" ")}`);
+    ? searchGames.filter((game) => {
+        const haystack = normalizeText(`${game.id} ${game.title} ${(game.aliases || []).join(" ")} ${game.genreNames.join(" ")}`);
         return haystack.includes(normalizedKeyword);
       })
-    : [...games];
+    : [...searchGames];
 
   const sortValue = sortSelect.value;
   return filtered.sort((a, b) => {
