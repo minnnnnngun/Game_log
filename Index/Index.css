@@ -19,18 +19,20 @@ body {
 header {
     width: 100%;
     height: 90px;
-    padding: 0 80px;
-
+    padding: 0 42px;
     display: flex;
     align-items: center;
-
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    background: rgba(5, 12, 26, 0.94);
 }
 
 .logo {
-    font-size: 32px;
+    width: 210px;
+    color: white;
+    font-size: 26px;
     font-weight: 800;
-    width: 200px;
+    letter-spacing: 0;
+    text-decoration: none;
 }
 
 .logo span {
@@ -47,17 +49,47 @@ nav ul {
     display: flex;
     flex: 1;
     justify-content: center;
-    gap: 40px;
+    gap: 56px;
     list-style: none;
-    transform: translate(-80px, 5px);
+    transform: translateX(-100px);
+}
+
+nav a {
+    position: relative;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+nav a:hover,
+nav a.active {
+    color: #8b5cf6;
+}
+
+nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    width: 52px;
+    height: 3px;
+    border-radius: 99px;
+    background: #8b5cf6;
+    transform: translateX(-50%);
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .profile-icon {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
-    transform: translateY(5px);
 }
 
 .profile {
@@ -67,8 +99,10 @@ nav ul {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 1px solid #475569;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
 }
 
 .profile-hover {
@@ -83,28 +117,6 @@ nav ul {
 .profile-icon:hover .profile-hover {
     opacity: 1;
     transform: scale(1.06);
-}
-
-.nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: #8b5cf6;
-}
-
-nav a.active {
-    color: #8b5cf6;
-    font-weight: 700;
 }
 
 main {
