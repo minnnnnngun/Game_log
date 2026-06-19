@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- 즐겨찾기 화면의 뼈대를 만드는 HTML 파일입니다. -->
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +8,6 @@
 </head>
 <body>
 <div class="linebox">
-    <!-- 맨 위 메뉴입니다. 다른 페이지로 이동할 수 있습니다. -->
     <header>
         <a href="../Index/Index.html" class="logo">Game<span>Log</span></a>
 
@@ -31,7 +29,6 @@
     </header>
 
     <main>
-        <!-- 즐겨찾기 제목, 저장 개수, 정렬 버튼을 보여주는 영역입니다. -->
         <section class="favorites-panel">
             <div>
                 <p class="eyebrow">Saved Games</p>
@@ -55,10 +52,8 @@
             </div>
         </section>
 
-        <!-- 저장한 게임 카드들이 들어갈 자리입니다. -->
         <section class="favorite-list" id="favoriteList" aria-label="즐겨찾기 게임 목록"></section>
 
-        <!-- 저장한 게임이 하나도 없을 때 보여주는 안내입니다. -->
         <section class="empty-state" id="emptyState">
             <img src="../image/search.png" alt="" aria-hidden="true">
             <h2>저장한 게임이 없습니다.</h2>
@@ -107,7 +102,6 @@
     </footer>
 </div>
 
-<!-- 즐겨찾기에서 삭제하기 전에 한 번 더 물어보는 창입니다. -->
 <div class="remove-modal" id="removeModal" aria-hidden="true">
     <div class="remove-modal-box" role="dialog" aria-modal="true" aria-labelledby="removeModalTitle">
         <h2 id="removeModalTitle">즐겨찾기 삭제</h2>
