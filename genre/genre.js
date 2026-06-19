@@ -483,7 +483,13 @@ addGameForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   // 사용자가 선택한 장르 값들을 가져옴.
-  const genres = getUniqueGenres([addGenre.value, addGenreSecond.value]);
+  const selectedGenres = [addGenre.value];
+
+  if (addGenreSecond) {
+    selectedGenres.push(addGenreSecond.value);
+  }
+
+  const genres = getUniqueGenres(selectedGenres);
   // input 값들을 모아 새 게임 객체를 만듦.
   const game = {
     // 사용자가 입력한 게임 제목임.
