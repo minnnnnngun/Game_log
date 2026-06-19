@@ -1,21 +1,16 @@
-// 장르 페이지에 처음부터 보여줄 기본 게임 목록임.
+// 장르 화면을 움직이게 만드는 자바스크립트 파일입니다.
+// 장르 필터, 정렬, 게임 추가, 삭제, 상세보기 창을 담당합니다.
+
+// 장르 화면에 처음부터 보여줄 기본 게임 목록입니다.
 const games = [
   {
-    // 게임을 구분하기 위한 고유 id임.
     id: "valorant",
-    // 화면에 보여줄 게임 제목임.
     title: "발로란트",
-    // 필터 기능에서 사용할 장르 값임.
     genres: ["fps", "strategy"],
-    // 카드에 보여줄 장르 이름임.
     genreNames: ["FPS", "전략"],
-    // 평점순 정렬과 카드 표시에 사용할 점수임.
     rating: 4.8,
-    // 최신순 정렬과 카드 표시에 사용할 출시연도임.
     year: 2020,
-    // 인기순 정렬에 사용할 숫자임.
     popularity: 98,
-    // 카드 이미지 경로임.
     image: "../image/Valorant-Logo-500x281.png",
   },
   {
@@ -159,59 +154,34 @@ const games = [
     image: "../image/TETRIS-removebg-preview.png",
   },
 ];
-
-// 게임 카드들이 들어갈 영역을 HTML에서 가져옴.
+// HTML에 있는 목록, 버튼, 입력 칸, 창들을 자바스크립트가 사용할 수 있게 가져옵니다.
 const gameGrid = document.querySelector("#gameGrid");
-// 현재 보이는 게임 개수를 표시할 요소를 가져옴.
 const gameCount = document.querySelector("#gameCount");
-// 정렬 select 박스를 가져옴.
 const sortSelect = document.querySelector("#sortSelect");
-// 페이지 버튼들이 들어갈 영역을 가져옴.
 const pagination = document.querySelector("#pagination");
-// 왼쪽 장르 필터 버튼들을 모두 가져옴.
 const filterButtons = document.querySelectorAll(".genre-filter");
-// 게임 추가 form을 가져옴.
 const addGameForm = document.querySelector("#addGameForm");
-// 게임 이름 input을 가져옴.
 const addTitle = document.querySelector("#addTitle");
-// 추가 form 안의 모든 장르 선택 select를 가져옴.
 const addGenreSelects = document.querySelectorAll(".add-genre-select");
-// 평점 input을 가져옴.
 const addRating = document.querySelector("#addRating");
-// 출시연도 input을 가져옴.
 const addYear = document.querySelector("#addYear");
-// 이미지 경로 input을 가져옴.
 const addImage = document.querySelector("#addImage");
-// 사용자가 직접 고른 이미지 파일 input을 가져옴.
 const addImageFile = document.querySelector("#addImageFile");
-// 삭제 확인 모달 전체 영역을 가져옴.
+const addDescription = document.querySelector("#addDescription");
 const deleteModal = document.querySelector("#deleteModal");
-// 삭제 확인 모달 안에 게임 이름을 보여줄 요소를 가져옴.
 const deleteGameName = document.querySelector("#deleteGameName");
-// 삭제 확인 모달의 "네" 버튼을 가져옴.
 const deleteConfirm = document.querySelector("#deleteConfirm");
-// 삭제 확인 모달의 "아니오" 버튼을 가져옴.
 const deleteCancel = document.querySelector("#deleteCancel");
-// 세부정보 모달 전체 영역을 가져옴.
 const detailModal = document.querySelector("#detailModal");
-// 세부정보 모달 닫기 버튼을 가져옴.
 const detailClose = document.querySelector("#detailClose");
-// 세부정보 모달 이미지 요소를 가져옴.
 const detailImage = document.querySelector("#detailImage");
-// 세부정보 모달 제목 요소를 가져옴.
 const detailTitle = document.querySelector("#detailTitle");
-// 세부정보 모달 장르 배지 영역을 가져옴.
 const detailGenres = document.querySelector("#detailGenres");
-// 세부정보 모달 평점 요소를 가져옴.
 const detailRating = document.querySelector("#detailRating");
-// 세부정보 모달 출시연도 요소를 가져옴.
 const detailYear = document.querySelector("#detailYear");
-// 세부정보 모달 인기점수 요소를 가져옴.
 const detailPopularity = document.querySelector("#detailPopularity");
-// 세부정보 모달 게임 구분 요소를 가져옴.
 const detailType = document.querySelector("#detailType");
-
-// form에서 선택한 장르 값을 화면에 보여줄 한글 이름으로 바꿔주는 객체임.
+// 컴퓨터가 쓰는 짧은 장르 이름을 사람이 읽는 한글 이름으로 바꿔 주는 표입니다.
 const genreNames = {
   action: "액션",
   rpg: "RPG",
@@ -224,11 +194,10 @@ const genreNames = {
   puzzle: "퍼즐",
   horror: "공포",
 };
-
-// 이미지가 비어 있거나 불러오지 못할 때 대신 보여줄 기본 이미지임.
+// 이미지가 없거나 잘못되었을 때 대신 보여줄 기본 이미지입니다.
 const DEFAULT_IMAGE_PATH = "../image/search.png";
 
-// 예전 genre 하나짜리 데이터도 배열처럼 쓰게 맞춰줌.
+// 게임의 장르가 하나여도, 여러 개여도 항상 배열 모양으로 맞춰 줍니다.
 function getGameGenres(game) {
   if (Array.isArray(game.genres)) {
     return game.genres;
@@ -241,7 +210,7 @@ function getGameGenres(game) {
   return [game.genre];
 }
 
-// 카드에 보여줄 장르 이름들도 배열로 맞춰줌.
+// 화면에 보여줄 장르 이름도 항상 배열 모양으로 맞춰 줍니다.
 function getGameGenreNames(game) {
   if (Array.isArray(game.genreNames)) {
     return game.genreNames;
@@ -254,43 +223,54 @@ function getGameGenreNames(game) {
   return [game.genreName];
 }
 
-// 장르 배열에서 비어 있거나 중복인 값은 빼줌.
+// 같은 장르를 두 번 골랐을 때 하나만 남깁니다.
 function getUniqueGenres(genres) {
   return [...new Set(genres.filter(Boolean))];
 }
 
-// 한 페이지에 보여줄 게임 카드 개수임.
+// 한 페이지에 몇 개씩 보여줄지와 지금 선택한 상태를 기억합니다.
 const perPage = 9;
-// 현재 선택된 장르임. 처음에는 전체 게임을 보여주기 위해 all로 둠.
 let activeGenre = "all";
-// 현재 페이지 번호임. 처음에는 1페이지부터 시작함.
 let currentPage = 1;
-// 지금 삭제하려고 선택한 게임 id를 잠시 저장하는 변수임.
 let selectedDeleteGameId = null;
 
-// localStorage에서 사용자가 추가한 게임 목록을 가져오는 함수임.
+// 사용자가 직접 추가한 게임은 localStorage의 "addedGames"라는 이름표에 저장됩니다.
+// localStorage는 브라우저 안 저장 공간이라 새로고침해도 데이터가 남아 있습니다.
 function getAddedGames() {
-  // localStorage에는 문자열로 저장되기 때문에 JSON.parse로 배열로 바꿈.
   return JSON.parse(localStorage.getItem("addedGames")) || [];
 }
 
-// 사용자가 추가한 게임 목록을 localStorage에 저장하는 함수임.
+// 바뀐 추가 게임 목록을 localStorage의 "addedGames" 자리에 다시 저장합니다.
 function setAddedGames(addedGames) {
-  // 배열은 바로 저장할 수 없어서 JSON 문자열로 바꿔 저장함.
   localStorage.setItem("addedGames", JSON.stringify(addedGames));
 }
 
-// localStorage에서 삭제한 기본 게임 id 목록을 가져오는 함수임.
+// 로그인이 필요한 기능을 쓰기 전에 로그인 상태를 확인합니다.
+function isLoggedIn() {
+  return Boolean(localStorage.getItem("loginUser"));
+}
+
+function requireLogin() {
+  if (isLoggedIn()) {
+    return true;
+  }
+
+  window.location.href = `../login/login.html?returnUrl=${encodeURIComponent(window.location.href)}`;
+  return false;
+}
+
+// 기본 게임 중 삭제한 게임 id는 localStorage의 "deletedGameIds"에 저장됩니다.
+// 기본 게임은 원래 코드에 들어 있으므로, 삭제했다는 기록만 따로 저장합니다.
 function getDeletedGameIds() {
   return JSON.parse(localStorage.getItem("deletedGameIds")) || [];
 }
 
-// 삭제한 기본 게임 id 목록을 localStorage에 저장하는 함수임.
+// 삭제한 기본 게임 id 목록을 localStorage의 "deletedGameIds" 자리에 다시 저장합니다.
 function setDeletedGameIds(deletedGameIds) {
   localStorage.setItem("deletedGameIds", JSON.stringify(deletedGameIds));
 }
 
-// 새로고침 후에도 삭제한 기본 게임이 다시 보이지 않게 하는 함수임.
+// 예전에 삭제한 기본 게임은 다시 화면에 나오지 않게 빼줍니다.
 function loadDeletedGames() {
   const deletedGameIds = getDeletedGameIds();
 
@@ -303,65 +283,44 @@ function loadDeletedGames() {
   });
 }
 
-// 새로고침 후에도 사용자가 추가한 게임을 다시 불러오는 함수임.
+// 예전에 사용자가 추가한 게임을 다시 games 배열에 넣어 줍니다.
 function loadAddedGames() {
-  // 저장된 게임을 가져오고, 혹시 id나 isCustom이 빠진 데이터가 있으면 보정함.
   const addedGames = getAddedGames().map((game) => ({
-    // 기존 게임 정보는 그대로 복사함.
     ...game,
-    // id가 없으면 새 id를 만들어 넣음.
     id: game.id || createGameId(game.title),
-    // 예전 추가 게임도 장르 배열을 갖게 맞춰줌.
     genres: getGameGenres(game),
-    // 예전 추가 게임도 장르 이름 배열을 갖게 맞춰줌.
     genreNames: getGameGenreNames(game),
-    // 저장된 이미지 경로도 현재 규칙에 맞게 다시 보정함.
     image: getImagePath(game.image || ""),
-    // 사용자가 추가한 게임이라는 표시를 넣음.
     isCustom: true,
   }));
-
-  // 보정된 데이터를 다시 localStorage에 저장함.
   setAddedGames(addedGames);
-  // 기본 게임 목록 뒤에 사용자가 추가한 게임들을 붙임.
   games.push(...addedGames);
 }
 
-// 이미지 경로 input 값을 검사해서 실제 사용할 이미지 경로를 정하는 함수임.
+// 이미지 주소를 화면에서 쓸 수 있는 깨끗한 모양으로 바꿉니다.
 function getImagePath(imagePath) {
-  // 앞뒤 공백을 제거함.
   const trimmedPath = imagePath
     .trim()
     .replace(/^%22|%22$/gi, "")
     .replace(/^["']|["']$/g, "")
     .replace(/%5c/gi, "/")
     .replaceAll("\\", "/");
-
-  // 이미지 경로를 비워두면 기본 이미지를 사용함.
   if (trimmedPath === "") {
     return DEFAULT_IMAGE_PATH;
   }
-
-  // www로 시작하는 외부 주소는 브라우저가 상대경로로 착각하지 않게 https를 붙임.
   if (/^www\./i.test(trimmedPath)) {
     return `https://${trimmedPath}`;
   }
-
-  // C:/Users/... 같은 윈도우 절대경로는 브라우저가 읽을 수 있는 file URL로 바꿈.
   if (/^[a-z]:\//i.test(trimmedPath)) {
     return encodeURI(`file:///${trimmedPath}`);
   }
-
-  // 프로젝트 루트 기준 image/...로 넣은 경로는 genre.html 기준 상대경로로 바꿈.
   if (/^\.?\/?image\//i.test(trimmedPath)) {
     return encodeURI(`../${trimmedPath.replace(/^\.?\//, "")}`);
   }
-
-  // 직접 입력한 이미지 경로나 URL이 있으면 브라우저가 읽기 좋게 공백 등을 인코딩함.
   return encodeURI(trimmedPath);
 }
 
-// 파일 선택으로 고른 이미지를 브라우저가 바로 표시할 수 있는 data URL로 읽음.
+// 사용자가 고른 이미지 파일을 브라우저가 읽을 수 있는 주소로 바꿉니다.
 function readImageFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -372,7 +331,7 @@ function readImageFile(file) {
   });
 }
 
-// 직접 선택한 파일이 있으면 그 파일을 우선 쓰고, 없으면 입력한 경로/URL을 사용함.
+// 파일 이미지를 골랐으면 파일을 쓰고, 아니면 글자로 적은 이미지 주소를 씁니다.
 async function getSelectedImagePath() {
   if (addImageFile.files.length > 0) {
     return readImageFile(addImageFile.files[0]);
@@ -381,7 +340,7 @@ async function getSelectedImagePath() {
   return getImagePath(addImage.value);
 }
 
-// HTML 속성 안에 들어갈 값을 안전하게 바꿔주는 함수임.
+// HTML에 넣을 글자에서 위험한 기호를 안전한 글자로 바꿉니다.
 function escapeAttribute(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -390,78 +349,49 @@ function escapeAttribute(value) {
     .replaceAll(">", "&gt;");
 }
 
-// 사용자가 추가한 게임에 붙일 고유 id를 만드는 함수임.
+// 새 게임마다 겹치지 않는 id 이름표를 만들어 줍니다.
 function createGameId(title) {
-  // 현재 시간과 게임 제목을 합쳐서 겹칠 가능성이 낮은 id를 만듦.
   return `custom-${Date.now()}-${title.replace(/\s+/g, "-")}`;
 }
 
-// 현재 필터와 정렬 조건에 맞는 게임 목록을 만드는 함수임.
+// 지금 선택한 장르와 정렬 기준에 맞는 게임 목록을 만듭니다.
 function getVisibleGames() {
-  // 전체 장르이면 모든 게임을 복사하고, 아니면 선택한 장르만 골라냄.
   const filtered =
     activeGenre === "all"
       ? [...games]
       : games.filter((game) => getGameGenres(game).includes(activeGenre));
-
-  // 현재 선택된 정렬 기준을 가져옴.
   const sortValue = sortSelect.value;
-
-  // 정렬 기준에 맞게 게임 배열을 정렬해서 돌려줌.
   return filtered.sort((a, b) => {
-    // 최신순이면 출시연도가 큰 게임이 먼저 오게 함.
     if (sortValue === "recent") {
       return b.year - a.year;
     }
-
-    // 평점순이면 평점이 높은 게임이 먼저 오게 함.
     if (sortValue === "rating") {
       return b.rating - a.rating;
     }
-
-    // 기본값인 인기순이면 popularity 숫자가 큰 게임이 먼저 오게 함.
     return b.popularity - a.popularity;
   });
 }
 
-// 사용자가 입력한 새 게임을 추가하는 함수임.
+// 새 게임을 목록에 넣고, 그 게임의 장르 화면으로 바로 이동합니다.
 function addGame(game) {
-  // localStorage에 저장된 추가 게임 목록을 가져옴.
   const addedGames = getAddedGames();
-
-  // 새 게임을 추가 게임 목록에 넣음.
   addedGames.push(game);
-  // localStorage에 새 목록을 저장함.
   setAddedGames(addedGames);
-  // 현재 화면에서 사용하는 games 배열에도 새 게임을 넣음.
   games.push(game);
-
-  // 추가한 게임의 첫 번째 장르로 필터를 자동 이동함.
   activeGenre = getGameGenres(game)[0];
-  // 첫 페이지부터 보여주도록 페이지를 초기화함.
   currentPage = 1;
-  // 방금 추가한 게임이 잘 보이도록 최신순으로 바꿈.
   sortSelect.value = "recent";
-
-  // 장르 버튼 중 추가한 게임의 장르 버튼만 active 상태로 바꿈.
   filterButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.genre === activeGenre);
   });
-
-  // 변경된 게임 목록을 화면에 다시 그림.
   renderGames();
 }
 
-// 게임을 삭제하는 함수임.
+// 게임을 삭제합니다. 기본 게임은 삭제했다는 기록도 따로 남깁니다.
 function deleteGame(gameId) {
-  // 삭제할 게임 정보를 찾음.
   const game = games.find((item) => item.id === gameId);
-  // localStorage 목록에서 삭제할 게임 id와 다른 게임만 남김.
   const addedGames = getAddedGames().filter((game) => game.id !== gameId);
-  // 현재 games 배열에서 삭제할 게임의 위치를 찾음.
   const gameIndex = games.findIndex((game) => game.id === gameId);
-
-  // 기본 게임을 삭제했다면 새로고침 후에도 숨기기 위해 id를 저장함.
   if (game && !game.isCustom) {
     const deletedGameIds = getDeletedGameIds();
 
@@ -470,41 +400,29 @@ function deleteGame(gameId) {
       setDeletedGameIds(deletedGameIds);
     }
   }
-
-  // 삭제할 게임을 찾았다면 games 배열에서 제거함.
   if (gameIndex !== -1) {
     games.splice(gameIndex, 1);
   }
-
-  // 삭제 후 남은 추가 게임 목록을 localStorage에 저장함.
   setAddedGames(addedGames);
-  // 삭제 결과를 화면에 다시 반영함.
   renderGames();
 }
 
-// 삭제 확인 모달을 여는 함수임.
+// 정말 삭제할지 물어보는 창을 엽니다.
 function openDeleteModal(gameId, gameTitle) {
-  // 삭제할 게임 id를 저장함.
   selectedDeleteGameId = gameId;
-  // 모달에 삭제할 게임 이름을 표시함.
   deleteGameName.textContent = gameTitle;
-  // 모달에 open 클래스를 붙여 화면에 보이게 함.
   deleteModal.classList.add("open");
-  // 모달이 보이는 상태라고 접근성 속성을 바꿈.
   deleteModal.setAttribute("aria-hidden", "false");
 }
 
-// 삭제 확인 모달을 닫는 함수임.
+// 삭제 확인 창을 닫습니다.
 function closeDeleteModal() {
-  // 모달에서 open 클래스를 제거해서 숨김.
   deleteModal.classList.remove("open");
-  // 모달이 숨겨진 상태라고 접근성 속성을 바꿈.
   deleteModal.setAttribute("aria-hidden", "true");
-  // 선택했던 삭제 게임 id를 초기화함.
   selectedDeleteGameId = null;
 }
 
-// 세부정보 모달을 여는 함수임.
+// 게임의 자세한 정보를 보여주는 창을 엽니다.
 function openDetailModal(game) {
   const imagePath = game.image || DEFAULT_IMAGE_PATH;
   const genreBadges = getGameGenreNames(game)
@@ -527,32 +445,27 @@ function openDetailModal(game) {
   detailModal.setAttribute("aria-hidden", "false");
 }
 
-// 세부정보 모달을 닫는 함수임.
+// 게임 id를 상세보기 페이지 주소로 바꿉니다.
+function getDetailPageUrl(gameId) {
+  return `../detail/detail.html?game=${encodeURIComponent(gameId)}`;
+}
+
+// 자세한 정보 창을 닫습니다.
 function closeDetailModal() {
   detailModal.classList.remove("open");
   detailModal.setAttribute("aria-hidden", "true");
 }
 
-// 게임 카드와 페이지네이션을 화면에 그리는 함수임.
+// 현재 조건에 맞는 게임 카드를 화면에 그립니다.
 function renderGames() {
-  // 현재 필터와 정렬 조건에 맞는 게임 목록을 가져옴.
   const visibleGames = getVisibleGames();
-  // 전체 페이지 수를 계산함. 최소 1페이지는 나오게 함.
   const totalPages = Math.max(1, Math.ceil(visibleGames.length / perPage));
-
-  // 현재 페이지가 전체 페이지보다 커졌다면 마지막 페이지로 맞춤.
   if (currentPage > totalPages) {
     currentPage = totalPages;
   }
-
-  // 현재 페이지에서 시작할 배열 위치를 계산함.
   const start = (currentPage - 1) * perPage;
-  // 현재 페이지에 보여줄 게임만 잘라냄.
   const pageGames = visibleGames.slice(start, start + perPage);
-
-  // 화면 위쪽에 총 게임 개수를 표시함.
   gameCount.textContent = `총 ${visibleGames.length}개`;
-  // pageGames 배열을 HTML 문자열로 바꿔 gameGrid 안에 넣음.
   gameGrid.innerHTML = pageGames
     .map((game) => {
       const imagePath = escapeAttribute(game.image || DEFAULT_IMAGE_PATH);
@@ -571,7 +484,7 @@ function renderGames() {
                     <span>${game.year}</span>
                 </div>
                 <div class="card-actions">
-                    <button type="button" class="detail-game-btn" data-id="${game.id}">세부정보 보기</button>
+                    <button type="button" class="detail-game-btn" data-id="${game.id}">상세 페이지 보기</button>
                     <button type="button" class="delete-game-btn" data-id="${game.id}">삭제</button>
                 </div>
             </div>
@@ -579,16 +492,12 @@ function renderGames() {
     `;
     })
     .join("");
-
-  // 게임 카드 아래 페이지 버튼도 다시 그림.
   renderPagination(totalPages);
 }
 
-// 페이지 번호 버튼들을 화면에 그리는 함수임.
+// 페이지 번호 버튼을 만듭니다.
 function renderPagination(totalPages) {
-  // 전체 페이지 수만큼 [1, 2, 3...] 배열을 만듦.
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
-  // 각 페이지 번호를 button HTML로 바꿈.
   const pageButtons = pages
     .map(
       (page) => `
@@ -598,8 +507,6 @@ function renderPagination(totalPages) {
     `,
     )
     .join("");
-
-  // 이전 버튼, 페이지 번호 버튼, 다음 버튼을 pagination 영역에 넣음.
   pagination.innerHTML = `
         <button type="button" class="page-btn" data-page="prev" ${currentPage === 1 ? "disabled" : ""}>‹</button>
         ${pageButtons}
@@ -608,200 +515,132 @@ function renderPagination(totalPages) {
     `;
 }
 
-// 장르 필터 버튼들에 클릭 이벤트를 연결함.
+// 왼쪽 장르 버튼을 누르면 해당 장르만 보여줍니다.
 filterButtons.forEach((button) => {
-  // 각각의 장르 버튼을 클릭했을 때 실행됨.
   button.addEventListener("click", () => {
-    // 모든 장르 버튼에서 active 클래스를 제거함.
     filterButtons.forEach((item) => item.classList.remove("active"));
-    // 클릭한 버튼에만 active 클래스를 추가함.
     button.classList.add("active");
-    // 현재 선택된 장르를 클릭한 버튼의 data-genre 값으로 바꿈.
     activeGenre = button.dataset.genre;
-    // 장르가 바뀌면 1페이지부터 보여줌.
     currentPage = 1;
-    // 바뀐 조건에 맞게 게임 목록을 다시 그림.
     renderGames();
   });
 });
 
-// 정렬 select 값이 바뀌었을 때 실행됨.
+// 정렬 방법이 바뀌면 첫 페이지부터 다시 그립니다.
 sortSelect.addEventListener("change", () => {
-  // 정렬이 바뀌면 1페이지부터 보여줌.
   currentPage = 1;
-  // 바뀐 정렬 기준으로 게임 목록을 다시 그림.
   renderGames();
 });
 
-// 게임 추가 form을 제출했을 때 실행됨.
+// 게임 추가 폼을 제출하면 새 게임을 만들어 저장합니다.
 addGameForm.addEventListener("submit", async (event) => {
-  // form 제출 시 페이지가 새로고침되는 기본 동작을 막음.
   event.preventDefault();
+  if (!requireLogin()) {
+    return;
+  }
 
-  // 사용자가 선택한 장르 값들을 가져옴.
   const selectedGenres = Array.from(addGenreSelects).map((select) => select.value);
 
   const genres = getUniqueGenres(selectedGenres);
-  // input 값들을 모아 새 게임 객체를 만듦.
   const game = {
-    // 사용자가 입력한 게임 제목임.
     title: addTitle.value.trim(),
-    // 새 게임에 고유 id를 붙임.
     id: createGameId(addTitle.value.trim()),
-    // 필터에서 사용할 장르 값들임.
     genres,
-    // 카드에 보여줄 한글 장르 이름들임.
     genreNames: genres.map((genre) => genreNames[genre]),
-    // 평점 input 값을 숫자로 바꿈.
     rating: Number(addRating.value),
-    // 출시연도 input 값을 숫자로 바꿈.
     year: Number(addYear.value),
-    // 사용자가 추가한 게임은 기본 인기 점수를 60으로 둠.
     popularity: 60,
-    // 이미지 경로를 검사해서 비어 있으면 기본 이미지를 넣음.
     image: await getSelectedImagePath(),
-    // 이 게임은 사용자가 추가한 게임이라는 표시임.
+    description: addDescription.value.trim(),
     isCustom: true,
   };
-
-  // 완성된 게임 객체를 목록에 추가함.
   addGame(game);
-  // 입력이 끝난 form을 비움.
   addGameForm.reset();
 });
 
-// 페이지네이션 영역을 클릭했을 때 실행됨.
+// 페이지 번호, 이전, 다음 버튼을 눌렀을 때 이동합니다.
 pagination.addEventListener("click", (event) => {
-  // 클릭한 대상에서 가장 가까운 페이지 버튼을 찾음.
   const button = event.target.closest(".page-btn");
-
-  // 버튼이 아니거나 disabled 상태면 아무것도 안 함.
   if (!button || button.disabled) {
     return;
   }
-
-  // 현재 조건에 맞는 게임 목록을 가져옴.
   const visibleGames = getVisibleGames();
-  // 현재 조건에서 전체 페이지 수를 계산함.
   const totalPages = Math.max(1, Math.ceil(visibleGames.length / perPage));
-  // 클릭한 버튼의 data-page 값을 가져옴.
   const page = button.dataset.page;
-
-  // 이전 버튼이면 현재 페이지를 1 줄임.
   if (page === "prev") {
     currentPage -= 1;
   } else if (page === "next") {
-    // 다음 버튼이면 현재 페이지를 1 늘림.
     currentPage += 1;
   } else {
-    // 숫자 버튼이면 그 숫자로 현재 페이지를 바꿈.
     currentPage = Number(page);
   }
-
-  // 현재 페이지가 1보다 작거나 마지막 페이지보다 커지지 않게 제한함.
   currentPage = Math.min(Math.max(currentPage, 1), totalPages);
-  // 바뀐 페이지에 맞게 게임 목록을 다시 그림.
   renderGames();
 });
 
-// 게임 카드 영역에서 삭제 버튼 클릭을 감지함.
+// 게임 카드에서 상세보기, 삭제, 삭제 버튼 보이기를 처리합니다.
 gameGrid.addEventListener("click", (event) => {
-  // 클릭한 대상에서 가장 가까운 삭제 버튼을 찾음.
   const deleteButton = event.target.closest(".delete-game-btn");
-  // 클릭한 대상에서 가장 가까운 세부정보 버튼을 찾음.
   const detailButton = event.target.closest(".detail-game-btn");
-  // 클릭한 대상에서 가장 가까운 게임 카드를 찾음.
   const gameCard = event.target.closest(".game-card");
-
-  // 게임 카드 바깥을 클릭했다면 아무것도 안 함.
   if (!gameCard) {
     return;
   }
-
-  // 세부정보 버튼을 클릭했다면 세부정보 모달을 엶.
   if (detailButton) {
-    const game = games.find((item) => item.id === detailButton.dataset.id);
-
-    if (game) {
-      openDetailModal(game);
-    }
-
+    window.location.href = getDetailPageUrl(detailButton.dataset.id);
     return;
   }
-
-  // 삭제 버튼을 클릭했다면 삭제 확인 모달을 엶.
   if (deleteButton) {
-    // 삭제할 게임 정보를 찾음.
-    const game = games.find((item) => item.id === deleteButton.dataset.id);
+    if (!requireLogin()) {
+      return;
+    }
 
-    // 게임 정보가 있으면 확인 모달을 엶.
+    const game = games.find((item) => item.id === deleteButton.dataset.id);
     if (game) {
       openDeleteModal(game.id, game.title);
     }
-
-    // 삭제 버튼 클릭 이후 아래 카드 선택 코드는 실행안 함.
     return;
   }
-
-  // 다른 카드의 삭제 버튼은 숨김.
-  gameGrid.querySelectorAll(".game-card").forEach((card) => {
-    // 지금 클릭한 카드가 아닌 카드에서 show-delete 클래스를 제거함.
-    if (card !== gameCard) {
-      card.classList.remove("show-delete");
-    }
-  });
-
-  // 클릭한 추가 게임 카드의 삭제 버튼 표시 상태를 켜거나 끕니다.
-  gameCard.classList.toggle("show-delete");
+  window.location.href = getDetailPageUrl(gameCard.dataset.id);
 });
 
-// 삭제 확인 모달에서 "네" 버튼을 클릭했을 때 실행됨.
+// 삭제 확인 버튼을 누르면 선택한 게임을 지웁니다.
 deleteConfirm.addEventListener("click", () => {
-  // 삭제할 게임 id가 있을 때만 삭제함.
   if (selectedDeleteGameId) {
     deleteGame(selectedDeleteGameId);
   }
-
-  // 삭제 후 모달을 닫음.
   closeDeleteModal();
 });
 
-// 삭제 확인 모달에서 "아니오" 버튼을 클릭하면 모달만 닫음.
 deleteCancel.addEventListener("click", closeDeleteModal);
 
-// 삭제 모달의 바깥 어두운 배경을 클릭하면 모달을 닫음.
+// 삭제 창 바깥쪽을 누르면 창을 닫습니다.
 deleteModal.addEventListener("click", (event) => {
-  // 클릭한 대상이 모달 배경일 때만 닫음.
   if (event.target === deleteModal) {
     closeDeleteModal();
   }
 });
 
-// 세부정보 모달 닫기 버튼을 클릭하면 모달을 닫음.
 detailClose.addEventListener("click", closeDetailModal);
 
-// 세부정보 모달의 바깥 어두운 배경을 클릭하면 모달을 닫음.
+// 상세보기 창 바깥쪽을 누르면 창을 닫습니다.
 detailModal.addEventListener("click", (event) => {
   if (event.target === detailModal) {
     closeDetailModal();
   }
 });
 
-// 키보드에서 Escape를 누르면 삭제 확인 모달을 닫음.
+// Esc 키를 누르면 열려 있는 창을 닫습니다.
 document.addEventListener("keydown", (event) => {
-  // Escape 키이고 삭제 모달이 열려 있으면 닫음.
   if (event.key === "Escape" && deleteModal.classList.contains("open")) {
     closeDeleteModal();
   }
-
-  // Escape 키이고 세부정보 모달이 열려 있으면 닫음.
   if (event.key === "Escape" && detailModal.classList.contains("open")) {
     closeDetailModal();
   }
 });
 
-// 페이지가 처음 열릴 때 localStorage에 저장된 추가 게임을 불러옴.
+// 저장된 삭제/추가 기록을 불러온 뒤, 게임 목록을 처음 그립니다.
 loadDeletedGames();
 loadAddedGames();
-// 모든 준비가 끝나면 게임 목록을 처음으로 화면에 그림.
 renderGames();
